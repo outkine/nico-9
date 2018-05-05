@@ -1,0 +1,27 @@
+language: node_js
+node_js:
+  - 8
+  - 7
+cache: yarn
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+install:
+  - yarn
+  - yarn flow-typed
+script:
+  - yarn test
+before_deploy:
+  - yarn global add netlify-cli -g
+  - yarn build
+deploy:
+  provider: script
+  script: netlify deploy -s $NETLIFY_SITE_ID -t $NETLIFY_ACCESS_TOKEN -p ./build
+  skip_cleanup: true
+  on:
+    branch: master

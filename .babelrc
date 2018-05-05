@@ -1,0 +1,33 @@
+{
+  "presets": [
+    "@babel/preset-flow",
+    ["@babel/preset-env", {
+      "modules": false
+    }],
+    ["@babel/preset-stage-0", {
+      "decoratorsLegacy": true
+    }],
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    [
+      "react-css-modules",
+      {
+        "generateScopedName": "[name]__[local]__[hash:base64:5]",
+        "webpackHotModuleReloading": true,
+        "filetypes": {
+          ".scss": {
+            "syntax": "postcss-scss"
+          }
+        }
+      }
+    ]
+  ],
+  "env": {
+    "devlopment": {
+      "plugins": [
+        "react-hot-loader/babel"
+      ]
+    }
+  }
+}

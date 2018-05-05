@@ -1,0 +1,20 @@
+[ignore]
+<PROJECT_ROOT>/node_modules/.*
+<PROJECT_ROOT>/dist/.*
+
+[include]
+
+[libs]
+
+[options]
+module.system.node.resolve_dirname=app
+all=true
+esproposal.decorators=ignore
+esproposal.class_static_fields=enable
+esproposal.class_instance_fields=enable
+esproposal.export_star_as=enable
+module.ignore_non_literal_requires=true
+
+module.name_mapper.extension='scss' -> '<PROJECT_ROOT>/client/global.js'
+
+suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe
