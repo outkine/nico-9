@@ -1,11 +1,62 @@
 import React from 'react'
-import serverless from 'serverless-http'
 import express from 'express'
 import path from 'path'
+import cors from 'cors'
+// import bodyParser from 'body-parser'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
+// import secrets from './client_secret'
+import * as admin from 'firebase-admin'
+import * as functions from 'firebase-functions'
+// import serviceAccount from './service-account-key'
+
+admin.initializeApp()
 
 const app = express()
+app.use(cors())
+// app.post('/graphql', bodyParser.json(), async (req, res, next) => {
+//   req.context = {}
+
+//   if (req.get('Authorization')) {
+//     const token = req.get('Authorization').split(' ')[1]
+//     let id
+
+//     // if (token === testingSecret.token) {
+//     //   id = testingSecret.id
+//     //   req.context.debug = true
+//     // } else {
+//     const response = await fetch(
+//       'https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=' + token
+//     )
+//     if (response.status !== 200) {
+//       res.sendStatus(401)
+//       return
+//     }
+//     const json = await response.json()
+//     if (json.aud !== secrets.web.client_id || Date.now() > json.exp * 1000) {
+//       res.sendStatus(401)
+//       return
+//     }
+//     id = json.sub
+//     // }
+
+//     const user = await mongo.Users.findOne({ _id: id })
+//     if (!user) {
+//       req.context.newUser = id
+//     } else {
+//       req.context.user = user
+//     }
+//   } else {
+//     // /// /////////////////// DEBUG ONLY
+//     // req.context.user = await mongo.Users.findOne({
+//     //   _id: '105342380724738854881',
+//     // })
+//     // req.context.newUser = '105342380724738854881'
+//     // /// //////////////////
+//   }
+
+//   next()
+// })
 
 if (process.env.NODE_ENV === 'development') {
   const webpack = require('webpack')
@@ -31,8 +82,7 @@ function render (html) {
       </head>
 
       <body>
-        <div id="app"></div>
-        ${html}
+        <div id="app">${html}</div>
         <script src="bundle.js"></script>
       </body>
     </html>
@@ -65,7 +115,7 @@ app.use((err, req, res, next) => {
   next(err)
 })
 
-export const handler = serverless(app)
+export const server = functions.https.onRequest(app)
 if (process.env.NODE_ENV === 'development') {
   app.listen(3000, () => console.log('Listening on http://localhost:3000'))
 }

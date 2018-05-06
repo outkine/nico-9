@@ -20,17 +20,40 @@ functions:
           path: /
           method: ANY
 
+resources:
+  Resources:
+    UsersDynamoDbTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: users
+        AttributeDefinitions:
+          - AttributeName: username
+            AttributeType: S
+        KeySchema:
+          - AttributeName: username
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    ProjectsDynamoDbTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: projects
+        AttributeDefinitions:
+          - AttributeName: title
+            AttributeType: S
+        KeySchema:
+          - AttributeName: title
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
 
 plugins:
-  # - serverless-webpack
-  # - serverless-dynamodb-local
+  - serverless-dynamodb-local
   - serverless-offline
 
 custom:
-  # webpackIncludeModules: true
-  # serverless-offline:
-    # babelOptions:
-    #   presets: ["env", "stage-0"]
-  # dynamodb:
-  #   start:
-  #     migrate: true
+  dynamodb:
+    start:
+      migrate: true

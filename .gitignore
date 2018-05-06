@@ -62,3 +62,4 @@ typings/
 
 dist
 .serverless
+client_secret.json

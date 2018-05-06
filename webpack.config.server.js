@@ -5,10 +5,10 @@ module.exports = {
   mode: process.env.NODE_ENV,
   entry: './src/server/index.js',
   target: 'node',
-  externals: [nodeExternals()],
+  // externals: [nodeExternals()],
   output: {
-    path: path.resolve('dist'),
-    filename: 'server.js',
+    path: path.resolve('functions'),
+    filename: 'index.js',
     publicPath: '/',
     libraryTarget: 'commonjs2',
   },
@@ -20,5 +20,8 @@ module.exports = {
         exclude: /node_modules/,
       },
     ],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json'],
   },
 }
