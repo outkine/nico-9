@@ -13,7 +13,7 @@ module.exports = {
       ]
       : './src/browser/index.js',
   output: {
-    path: path.resolve('dist/public'),
+    path: path.resolve('public'),
     filename: 'bundle.js',
     publicPath: '/',
   },
@@ -61,7 +61,7 @@ module.exports = {
       ]
       : [],
   resolve: {
-    modules: ['node_modules', path.join(__dirname, 'app')],
+    modules: ['node_modules', path.resolve('src/browser')],
     extensions: ['.js', '.jsx', '.json'],
   },
 }
