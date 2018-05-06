@@ -3,7 +3,7 @@ import React from 'react'
 export default class Home extends React.Component<{}> {
   render() {
     return (
-      <div>man</div>
+      <div>Hello, world!</div>
     )
   }
 }

@@ -3,12 +3,12 @@ const webpack = require('webpack')
 
 module.exports = {
   mode: process.env.NODE_ENV,
-  entry: [
+  entry: process.env.NODE_ENV === 'development' ? [
     'react-hot-loader/patch',
     `webpack-hot-middleware/client?path=/__webpack_hmr`,
     'webpack/hot/only-dev-server',
     './src/browser/index.js',
-  ],
+  ] : './src/browser/index.js',
   output: {
     path: path.resolve('dist/public'),
     filename: 'bundle.js',
@@ -46,11 +46,8 @@ module.exports = {
       ]
     }]
   },
-  plugins: [
+  plugins: process.env.NODE_ENV === 'development' ? [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({
-      __isBrowser__: "true"
-    })
-  ]
+  ] : [],
 }

@@ -1,18 +1,15 @@
 language: node_js
 node_js:
-  - 8
+  - 8.10
 cache: yarn
 install:
   - yarn
   - yarn flow-typed
 script:
   - yarn test
-before_deploy:
-  - yarn global add netlify-cli -g
   - yarn build
+before_deploy:
+  - yarn global add serverless
 deploy:
   provider: script
-  script: netlify deploy -s $NETLIFY_SITE_ID -t $NETLIFY_ACCESS_TOKEN -p ./dist
-  skip_cleanup: true
-  on:
-    branch: master
+  script: sls deploy

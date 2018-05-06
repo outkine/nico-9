@@ -59,9 +59,7 @@ app.use((err, req, res, next) => {
   next(err)
 })
 
-
-// if (process.env.NODE_ENV === 'production') {
-//   module.exports.handler = serverless(app)
-// } else {
+export const handler = serverless(app)
+if (process.env.NODE_ENV === 'development') {
   app.listen(3000, () => console.log('Listening on http://localhost:3000'))
-// }
+}
