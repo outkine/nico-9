@@ -4,7 +4,6 @@ node_js:
 cache: yarn
 install:
   - yarn
-  - yarn flow-typed
 script:
   - yarn test
   - yarn build

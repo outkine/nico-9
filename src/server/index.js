@@ -11,16 +11,18 @@ if (process.env.NODE_ENV === 'development') {
   const webpack = require('webpack')
   const config = require('../../webpack.config.browser')
   const compiler = webpack(config)
-  app.use(require('webpack-dev-middleware')(compiler, {
-    publicPath: config.output.publicPath,
-  }))
+  app.use(
+    require('webpack-dev-middleware')(compiler, {
+      publicPath: config.output.publicPath
+    })
+  )
   app.use(require('webpack-hot-middleware')(compiler))
   // app.use(express.static(path.resolve('../src/browser')));
 } else if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.resolve('public')))
 }
 
-function render(html) {
+function render (html) {
   return `
     <!DOCTYPE html>
     <html>
@@ -42,12 +44,16 @@ app.get('*', (req, res, next) => {
     try {
       const App = require('../browser/App.js').default
       let context = {}
-      res.send(render(renderToString(
-        <StaticRouter location={req.url} context={context}>
-          <App />
-        </StaticRouter>
-      )))
-    } catch(e) {
+      res.send(
+        render(
+          renderToString(
+            <StaticRouter location={req.url} context={context}>
+              <App />
+            </StaticRouter>
+          )
+        )
+      )
+    } catch (e) {
       console.log(e)
     }
   } else {

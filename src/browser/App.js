@@ -3,7 +3,8 @@ import { Switch, Route } from 'react-router-dom'
 
 import * as scenes from './scenes'
 
-export default () =>
+export default () => (
   <Switch>
-    <Route path='/' component={scenes.Home} />
+    <Route path="/" component={scenes.Home} />
   </Switch>
+)

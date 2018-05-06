@@ -5,23 +5,19 @@ import { BrowserRouter } from 'react-router-dom'
 
 import App from './App'
 
-const root = document.createElement('div');
-//$FlowFixMe
-document.body.appendChild(root)
-
+const root = document.createElement('div')
 const renderHot = Component =>
   hydrate(
     <AppContainer>
       <BrowserRouter>
         <Component />
       </BrowserRouter>
-    </AppContainer>
-    , root
+    </AppContainer>,
+    root
   )
 
 renderHot(App)
 
-//$FlowFixMe
 if (module.hot) {
   module.hot.accept('./App', () => {
     const NextApp = require('./App').default
