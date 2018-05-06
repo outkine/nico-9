@@ -4,9 +4,9 @@ const webpack = require('webpack')
 module.exports = {
   mode: process.env.NODE_ENV,
   entry: [
-    // 'react-hot-loader/patch',
+    'react-hot-loader/patch',
     `webpack-hot-middleware/client?path=/__webpack_hmr`,
-    // 'webpack/hot/only-dev-server',
+    'webpack/hot/only-dev-server',
     './src/browser/index.js',
   ],
   output: {
@@ -14,7 +14,6 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/'
   },
-  devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'eval',
   module: {
     rules: [{
       test: /\.jsx?$/,

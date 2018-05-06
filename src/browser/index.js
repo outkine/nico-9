@@ -1,6 +1,7 @@
 import React from 'react'
-import { render } from 'react-dom'
+import { hydrate } from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
+import { BrowserRouter } from 'react-router-dom'
 
 import App from './App'
 
@@ -9,9 +10,11 @@ const root = document.createElement('div');
 document.body.appendChild(root)
 
 const renderHot = Component =>
-  render(
+  hydrate(
     <AppContainer>
-      <Component />
+      <BrowserRouter>
+        <Component />
+      </BrowserRouter>
     </AppContainer>
     , root
   )

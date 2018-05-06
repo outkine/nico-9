@@ -1,16 +1,14 @@
+import React from 'react'
+import serverless from 'serverless-http'
 import express from 'express'
-import cors from 'cors'
 import path from 'path'
-import webpack from 'webpack'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
-// import App from '../browser'
 
 const app = express()
 
-// app.use(cors())
-
 if (process.env.NODE_ENV === 'development') {
+  const webpack = require('webpack')
   const config = require('../../webpack.config.browser')
   const compiler = webpack(config)
   app.use(require('webpack-dev-middleware')(compiler, {
@@ -33,6 +31,7 @@ function render(html) {
       <body>
         <div id="app"></div>
         ${html}
+        <script src="bundle.js"></script>
       </body>
     </html>
   `
@@ -40,19 +39,29 @@ function render(html) {
 
 app.get('*', (req, res, next) => {
   if (process.env.NODE_ENV === 'production') {
-    let context = {}
-    res.send(render(renderToString(
-      <StaticRouter location={req.url} context={context}>
-        <App />
-      </StaticRouter>
-    )))
+    try {
+      const App = require('../browser/App.js').default
+      let context = {}
+      res.send(render(renderToString(
+        <StaticRouter location={req.url} context={context}>
+          <App />
+        </StaticRouter>
+      )))
+    } catch(e) {
+      console.log(e)
+    }
   } else {
-    res.send(render(
-      '<script src="bundle.js"></script>'
-    ))
+    res.send(render(''))
   }
 })
-
-app.listen(3000, () => {
-  console.log('Server is listening on port: 3000')
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  next(err)
 })
+
+
+// if (process.env.NODE_ENV === 'production') {
+//   module.exports.handler = serverless(app)
+// } else {
+  app.listen(3000, () => console.log('Listening on http://localhost:3000'))
+// }
