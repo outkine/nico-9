@@ -1,13 +1,18 @@
 const path = require('path')
 const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 module.exports = {
   mode: process.env.NODE_ENV,
-  entry: path.resolve('./src/index'),
+  entry: [
+    // 'react-hot-loader/patch',
+    `webpack-hot-middleware/client?path=/__webpack_hmr`,
+    // 'webpack/hot/only-dev-server',
+    './src/browser/index.js',
+  ],
   output: {
-    path: path.resolve('dist'),
+    path: path.resolve('dist/public'),
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'eval',
   module: {
@@ -43,8 +48,10 @@ module.exports = {
     }]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      title: 'event0 portal'
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.DefinePlugin({
+      __isBrowser__: "true"
     })
   ]
 }

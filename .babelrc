@@ -1,13 +1,11 @@
 {
   "presets": [
-    "@babel/preset-flow",
-    ["@babel/preset-env", {
-      "modules": false
-    }],
+    "@babel/preset-env",
     ["@babel/preset-stage-0", {
       "decoratorsLegacy": true
     }],
-    "@babel/preset-react"
+    "@babel/preset-react",
+    "@babel/preset-flow"
   ],
   "plugins": [
     [

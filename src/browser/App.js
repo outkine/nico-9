@@ -1,10 +1,10 @@
 import React from 'react'
-import { hot } from 'react-hot-loader'
+// import { hot } from 'react-hot-loader'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import * as scenes from './scenes'
 
-const App = () =>
+export default () =>
   <BrowserRouter>
     <Switch>
       <Route path='/' component={scenes.Home} />
@@ -12,4 +12,4 @@ const App = () =>
   </BrowserRouter>
 
 
-export default hot(module)(App)
+// export default hot(module)(App)
