@@ -8,8 +8,6 @@ install:
 script:
   - yarn test
   - yarn build
-before_deploy:
-  - yarn global add serverless
 deploy:
   provider: script
-  script: sls deploy
+  script: yarn deploy
