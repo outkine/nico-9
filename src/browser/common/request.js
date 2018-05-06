@@ -15,8 +15,8 @@ export async function post (path: string, data: any) {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   })
 }
 
@@ -41,7 +41,6 @@ export async function cors (
     form.appendChild(input)
   }
 
-  // $FlowFixMe
   document.body.appendChild(form)
   form.submit()
 }

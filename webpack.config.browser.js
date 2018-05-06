@@ -9,20 +9,20 @@ module.exports = {
         'react-hot-loader/patch',
         `webpack-hot-middleware/client?path=/__webpack_hmr`,
         'webpack/hot/only-dev-server',
-        './src/browser/index.js'
+        './src/browser/index.js',
       ]
       : './src/browser/index.js',
   output: {
     path: path.resolve('dist/public'),
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: '/',
   },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         use: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.scss$/,
@@ -33,11 +33,11 @@ module.exports = {
             options: {
               modules: true,
               importLoaders: 1,
-              localIdentName: '[name]__[local]___[hash:base64:5]'
-            }
+              localIdentName: '[name]__[local]___[hash:base64:5]',
+            },
           },
-          'sass-loader'
-        ]
+          'sass-loader',
+        ],
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
@@ -46,18 +46,22 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 1000,
-              name: 'assets/[hash].[ext]'
-            }
-          }
-        ]
-      }
-    ]
+              name: 'assets/[hash].[ext]',
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins:
     process.env.NODE_ENV === 'development'
       ? [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
+        new webpack.NoEmitOnErrorsPlugin(),
       ]
-      : []
+      : [],
+  resolve: {
+    modules: [path.join(__dirname, 'app')],
+    extensions: ['.js', '.jsx', '.json'],
+  },
 }

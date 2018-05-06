@@ -9,7 +9,7 @@ export function login () {
     client_id: CLIENT_ID,
     redirect_uri: REDIRECT,
     response_type: 'token',
-    scope: 'https://www.googleapis.com/auth/userinfo.email'
+    scope: 'https://www.googleapis.com/auth/userinfo.email',
   })
 }
 
@@ -20,7 +20,7 @@ export async function validate (
   newRedirect
 ) {
   const auth = await get('https://www.googleapis.com/oauth2/v3/tokeninfo', {
-    access_token: token
+    access_token: token,
   })
   if (auth.aud !== CLIENT_ID) {
     history.replace(failRedirect)
@@ -37,7 +37,7 @@ export async function validate (
         }
       }
     `,
-    variables: { id: auth.sub }
+    variables: { id: auth.sub },
   })
 
   if (data.user) {
@@ -51,7 +51,7 @@ export async function validate (
           }
         }
       `,
-      variables: { input: { username: auth.email.split('@')[0] } }
+      variables: { input: { username: auth.email.split('@')[0] } },
     })
 
     history.replace(newRedirects)

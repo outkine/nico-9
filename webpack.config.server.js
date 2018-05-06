@@ -10,15 +10,15 @@ module.exports = {
     path: path.resolve('dist'),
     filename: 'server.js',
     publicPath: '/',
-    libraryTarget: 'commonjs2'
+    libraryTarget: 'commonjs2',
   },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         use: 'babel-loader',
-        exclude: /node_modules/
-      }
-    ]
-  }
+        exclude: /node_modules/,
+      },
+    ],
+  },
 }
