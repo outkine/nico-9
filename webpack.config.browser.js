@@ -61,7 +61,7 @@ module.exports = {
       ]
       : [],
   resolve: {
-    modules: [path.join(__dirname, 'app')],
+    modules: ['node_modules', path.join(__dirname, 'app')],
     extensions: ['.js', '.jsx', '.json'],
   },
 }

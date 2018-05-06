@@ -5,7 +5,6 @@
       "decoratorsLegacy": true
     }],
     "@babel/preset-react",
-    "@babel/preset-flow"
   ],
   "plugins": [
     [
