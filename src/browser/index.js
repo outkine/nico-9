@@ -1,19 +1,23 @@
 import React from 'react'
-import { hydrate } from 'react-dom'
+import { render, hydrate } from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
-import { BrowserRouter } from 'react-router-dom'
+import { Router } from 'react-router-dom'
+import createHistory from 'history/createBrowserHistory'
 
 import App from './App'
 
-const root = document.createElement('div')
+export const history = createHistory()
+
+let render_ = process.env.NODE_ENV === 'production' ? hydrate : render
+
 const renderHot = Component =>
-  hydrate(
+  render_(
     <AppContainer>
-      <BrowserRouter>
+      <Router history={history}>
         <Component />
-      </BrowserRouter>
+      </Router>
     </AppContainer>,
-    root
+    document.getElementById('app')
   )
 
 renderHot(App)

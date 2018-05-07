@@ -3,7 +3,7 @@ const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
   mode: process.env.NODE_ENV,
-  entry: './src/server/index.js',
+  entry: ['@babel/polyfill', './src/server/index.js'],
   target: 'node',
   // externals: [nodeExternals()],
   output: {
@@ -24,4 +24,5 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
   },
+  stats: 'errors-only',
 }

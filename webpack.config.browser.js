@@ -6,12 +6,13 @@ module.exports = {
   entry:
     process.env.NODE_ENV === 'development'
       ? [
+        '@babel/polyfill',
         'react-hot-loader/patch',
         `webpack-hot-middleware/client?path=/__webpack_hmr`,
         'webpack/hot/only-dev-server',
         './src/browser/index.js',
       ]
-      : './src/browser/index.js',
+      : ['@babel/polyfill', './src/browser/index.js'],
   output: {
     path: path.resolve('public'),
     filename: 'bundle.js',
@@ -64,4 +65,5 @@ module.exports = {
     modules: ['node_modules', path.resolve('src/browser')],
     extensions: ['.js', '.jsx', '.json'],
   },
+  stats: 'errors-only',
 }

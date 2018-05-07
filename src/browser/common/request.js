@@ -10,7 +10,7 @@ async function request (path, options) {
   }
 }
 
-export async function post (path: string, data: any) {
+export async function post (path, data) {
   return request(path, {
     method: 'POST',
     body: JSON.stringify(data),
@@ -20,15 +20,11 @@ export async function post (path: string, data: any) {
   })
 }
 
-export async function get (path: string, data: any) {
+export async function get (path, data) {
   return request(path + '?' + querystring.stringify(data), {})
 }
 
-export async function cors (
-  method: 'GET' | 'POST',
-  endpoint: string,
-  data: any
-) {
+export async function cors (method, endpoint, data) {
   const form = document.createElement('form')
   form.setAttribute('method', method)
   form.setAttribute('action', endpoint)
