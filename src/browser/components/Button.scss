@@ -1,13 +1,5 @@
-// @import '~styles/definitions.scss';
+@import '~styles/definitions.scss';
 
-// .main {
-//   @include standard-border;
-// }
-
-// // .team1 {
-// //   background: map-get($map: $color, $key: primary1);
-// // }
-
-// // .team1 {
-// //   background: map-get($map: $color, $key: primary2);
-// // }
+.main {
+  @include standard-border;
+}

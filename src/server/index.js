@@ -1,18 +1,20 @@
 import path from 'path'
+import fetch from 'node-fetch'
 import express from 'express'
-import React from 'react'
 import cors from 'cors'
 import bodyParser from 'body-parser'
+import morgan from 'morgan'
+import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 import * as admin from 'firebase-admin'
 import * as functions from 'firebase-functions'
-import { graphqlExpress } from 'apollo-server-express'
-import secrets from './client_secret'
+
+import serviceAccount from './secret-firebase'
+import googleSecret from './secret-google'
+import testingSecret from './secret-testing'
 import schema from './schema'
-import fetch from 'node-fetch'
-import serviceAccount from './secret-key'
-import morgan from 'morgan'
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -23,6 +25,7 @@ const db = admin.firestore()
 const app = express()
 app.use(morgan('tiny'))
 app.use(cors())
+
 app.post(
   '/graphql',
   bodyParser.json(),
@@ -34,29 +37,27 @@ app.post(
 
       let id
 
-      // if (token === testingSecret.token) {
-      //   id = testingSecret.id
-      //   req.context.debug = true
-      // } else {
-
-      const response = await fetch(
-        'https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=' + token
-      )
-
-      if (response.status !== 200) {
-        res.status(401).json({ error: 'Invalid token.' })
-        return
+      if (token === testingSecret.token) {
+        id = testingSecret.id
+      } else {
+        const response = await fetch(
+          'https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=' + token
+        )
+        if (response.status !== 200) {
+          res.status(401).json({ error: 'Invalid token.' })
+          return
+        }
+        const json = await response.json()
+        if (
+          json.aud !== googleSecret.web.client_id ||
+          Date.now() > json.exp * 1000 ||
+          json.error_description
+        ) {
+          res.status(401).json({ error: 'Invalid token.' })
+          return
+        }
+        id = json.sub
       }
-      const json = await response.json()
-      if (
-        json.aud !== secrets.web.client_id ||
-        Date.now() > json.exp * 1000 ||
-        json.error_description
-      ) {
-        res.status(401).json({ error: 'Invalid token.' })
-        return
-      }
-      id = json.sub
 
       const user = await db
         .collection('users')
@@ -77,6 +78,15 @@ app.post(
     schema,
   }))
 )
+
+if (process.env.NODE_ENV === 'development') {
+  app.get(
+    '/graphiql',
+    graphiqlExpress(() => ({
+      passHeader: `'Authorization': 'Bearer ${testingSecret.token}'`,
+    }))
+  )
+}
 
 function render (html) {
   return `

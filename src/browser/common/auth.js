@@ -1,18 +1,15 @@
-import { get, cors } from 'common/request'
+import { get } from 'common/request'
 import { client } from 'App'
-import { mutation, query } from 'urql'
 import { history } from 'index'
+import gql from 'graphql-tag'
 
 import * as firebase from 'firebase'
+import { HOME_URI, LOGIN_URI, SIGNUP_URI } from '../Routes'
 
 const provider = new firebase.auth.GoogleAuthProvider()
 
 const CLIENT_ID =
   '810541216828-u6mqqjil5i6l3eii11gelm4u4dmn46g2.apps.googleusercontent.com'
-const REDIRECT = 'http://localhost:8080/oauth2callback'
-const FAIL_REDIRECT = '/login'
-const EXIST_REDIRECT = '/'
-const NEW_REDIRECT = '/create'
 
 export async function login () {
   const {
@@ -29,54 +26,47 @@ export async function login () {
   window.localStorage.setItem('exp', auth.exp)
   window.localStorage.setItem('id', auth.sub)
 
-  const { data, error } = await client.executeQuery(
-    query(
-      `
+  const data = await client.query({
+    query: gql`
       query($id: ID!) {
         user(id: $id) {
           id
         }
       }
     `,
-      { id: auth.sub }
-    )
-  )
+    variables: { id: auth.sub },
+  })
 
-  console.log(error)
-  if (error) throw new Error(error)
-
-  console.log(auth)
   if (data.user) {
-    history.replace(EXIST_REDIRECT)
+    history.replace(HOME_URI)
   } else {
-    await client.executeMutation(
-      mutation(
-        `
+    await client.mutation({
+      mutation: gql`
         mutation($id: ID!, $input: createUserInput!) {
           createUser(id: $id, input: $input) {
             writeTime
           }
         }
       `,
-        {
-          id: auth.sub,
-          input: { email: auth.email, username: auth.email.split('@')[0] },
-        }
-      )
-    )
-    history.replace(NEW_REDIRECT)
+      variables: {
+        id: auth.sub,
+        input: { email: auth.email, username: auth.email.split('@')[0] },
+      },
+    })
+    history.replace(SIGNUP_URI)
   }
 }
+window.login = login
 
 export function logout () {
   window.localStorage.removeItem('token')
   window.localStorage.removeItem('exp')
   window.localStorage.removeItem('id')
-  history.push(FAIL_REDIRECT)
+  history.push(LOGIN_URI)
 }
 window.logout = logout
-// TODO: remove
 
 export function isAuthenticated () {
   return Date.now() < parseInt(window.localStorage.getItem('exp')) * 1000
 }
+window.isAuthenticated = isAuthenticated

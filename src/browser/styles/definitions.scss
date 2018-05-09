@@ -1,15 +1,15 @@
-// $color: (
-//   background: #EDEDED,
-//   foreground: #C4C4C4
-//   primary1: #57A5E9,
-//   primary1Light: #83C3FA,
-//   primary2: #BE426C,
-//   primary2Light: #FC739C,
-// );
+$color: (
+  background: #EDEDED,
+  foreground: #C4C4C4,
+  primary1: #57A5E9,
+  primary1Light: #83C3FA,
+  primary2: #BE426C,
+  primary2Light: #FC739C,
+);
 
-// @mixin standard-border {
-//   border: '8px solid black';
-//   borderRadius: 10;
-// }
+@mixin standard-border {
+  border: '8px solid black';
+  borderRadius: 10;
+}
 
-// $border-radius: 18px;
+$border-radius: 18px;
