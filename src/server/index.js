@@ -12,6 +12,7 @@ import secrets from './client_secret'
 import schema from './schema'
 import fetch from 'node-fetch'
 import serviceAccount from './secret-key'
+import morgan from 'morgan'
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -20,6 +21,7 @@ admin.initializeApp({
 const db = admin.firestore()
 
 const app = express()
+app.use(morgan('tiny'))
 app.use(cors())
 app.post(
   '/graphql',
@@ -36,22 +38,25 @@ app.post(
       //   id = testingSecret.id
       //   req.context.debug = true
       // } else {
+
       const response = await fetch(
         'https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=' + token
       )
+
       if (response.status !== 200) {
         res.status(401).json({ error: 'Invalid token.' })
         return
       }
       const json = await response.json()
-      if (json.aud !== secrets.web.client_id || Date.now() > json.exp * 1000) {
-        res
-          .status(401)
-          .json({ error: 'Incorrect application or expired token.' })
+      if (
+        json.aud !== secrets.web.client_id ||
+        Date.now() > json.exp * 1000 ||
+        json.error_description
+      ) {
+        res.status(401).json({ error: 'Invalid token.' })
         return
       }
       id = json.sub
-      // }
 
       const user = await db
         .collection('users')
@@ -61,41 +66,17 @@ app.post(
         req.context.newUser = true
       }
     } else {
-      // /// /////////////////// DEBUG ONLY
-      // req.context.user = await mongo.Users.findOne({
-      //   _id: '105342380724738854881',
-      // })
-      // req.context.newUser = '105342380724738854881'
-      // /// //////////////////
       res.status(401).json({ error: 'Missing authorization header.' })
       return
     }
 
     next()
   },
-  async (req, res, next) => {
-    return graphqlExpress({
-      context: { ...req.context, db },
-      schema,
-    })(req, res, next)
-  }
+  graphqlExpress(req => ({
+    context: { ...req.context, db },
+    schema,
+  }))
 )
-
-if (process.env.NODE_ENV === 'development') {
-  const webpack = require('webpack')
-  const config = require('../../webpack.config.browser')
-  const compiler = webpack(config)
-  app.use(
-    require('webpack-dev-middleware')(compiler, {
-      publicPath: config.output.publicPath,
-      stats: 'errors-only',
-    })
-  )
-  app.use(require('webpack-hot-middleware')(compiler))
-  // app.use(express.static(path.resolve('../src/browser')));
-} else if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.resolve('public')))
-}
 
 function render (html) {
   return `
@@ -113,6 +94,22 @@ function render (html) {
   `
 }
 
+if (process.env.NODE_ENV === 'development') {
+  const webpack = require('webpack')
+  const config = require('../../webpack.config.browser')
+  const compiler = webpack(config)
+  app.get(
+    '*',
+    require('webpack-dev-middleware')(compiler, {
+      publicPath: config.output.publicPath,
+      stats: 'errors-only',
+    })
+  )
+  app.get('*', require('webpack-hot-middleware')(compiler))
+} else if (process.env.NODE_ENV === 'production') {
+  app.get('*', express.static(path.resolve('public')))
+}
+
 app.get('*', (req, res, next) => {
   if (process.env.NODE_ENV === 'production') {
     try {
@@ -128,7 +125,7 @@ app.get('*', (req, res, next) => {
         )
       )
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   } else {
     res.send(render(''))

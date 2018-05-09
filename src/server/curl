@@ -1,0 +1,16 @@
+{ request:
+   { method: 'POST',
+     url: '/graphql',
+     header:
+      { host: 'localhost:3000',
+        'user-agent': 'curl/7.59.0',
+        accept: 'application/json',
+        'content-type': 'application/json',
+        authorization: 'Bearer ya29.Gly2BUusUtOwqjads-KnV2U0idWZ7ALckIdlZntyA1Akh1ZQhqWORuF4HBInSXNoLU5Z5siltBWOWhkazUrhBGRJ3GbIUj1nX8dQAWJ7WZJS7gqSKTCDlldn9D3aew',
+        'content-length': '29' } },
+  response: { status: 404, message: 'Not Found', header: {} },
+  app: { subdomainOffset: 2, proxy: false, env: 'development' },
+  originalUrl: '/graphql',
+  req: '<original node req>',
+  res: '<original node res>',
+  socket: '<original node socket>' }

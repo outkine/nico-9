@@ -14,7 +14,8 @@ import { ConnectHOC, mutation } from 'urql'
 })
 export default class Home extends React.Component {
   render () {
-    console.log(this.props)
+    console.log(this.props.error, this.props.error?.response)
+    console.dir(this.props.error)
     return (
       <div>
         <input ref={el => (this.username = el)} />
