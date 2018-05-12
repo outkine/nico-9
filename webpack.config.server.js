@@ -1,7 +1,8 @@
 const path = require('path')
+const baseConfig = require('./webpack.config')
 // const nodeExternals = require('webpack-node-externals')
 
-module.exports = {
+module.exports = Object.assign(baseConfig, {
   mode: process.env.NODE_ENV,
   entry: ['@babel/polyfill', './src/server/index.js'],
   target: 'node',
@@ -12,17 +13,4 @@ module.exports = {
     publicPath: '/',
     libraryTarget: 'commonjs2',
   },
-  module: {
-    rules: [
-      {
-        test: /\.jsx?$/,
-        use: 'babel-loader',
-        exclude: /node_modules/,
-      },
-    ],
-  },
-  resolve: {
-    extensions: ['.js', '.jsx', '.json'],
-  },
-  stats: 'errors-only',
-}
+})

@@ -1,12 +1,11 @@
 import React from 'react'
 import { login } from 'common/auth'
-import { Button } from 'components'
 
-export default class Home extends React.Component {
-  render () {
+export default class Login extends React.Component {
+  render() {
     return (
       <div>
-        <Button onClick={login}>Log in!</Button>
+        <button onClick={login}>Log in!</button>
       </div>
     )
   }

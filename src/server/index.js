@@ -73,12 +73,11 @@ app.post(
 
     next()
   },
-  graphqlExpress(req => ({
+  graphqlExpress((req) => ({
     context: { ...req.context, db },
     schema,
   }))
 )
-
 if (process.env.NODE_ENV === 'development') {
   app.get(
     '/graphiql',
@@ -88,7 +87,7 @@ if (process.env.NODE_ENV === 'development') {
   )
 }
 
-function render (html) {
+function render(html) {
   return `
     <!DOCTYPE html>
     <html>
@@ -112,7 +111,7 @@ if (process.env.NODE_ENV === 'development') {
     '*',
     require('webpack-dev-middleware')(compiler, {
       publicPath: config.output.publicPath,
-      stats: 'errors-only',
+      stats: 'minimal',
     })
   )
   app.get('*', require('webpack-hot-middleware')(compiler))
@@ -122,21 +121,20 @@ if (process.env.NODE_ENV === 'development') {
 
 app.get('*', (req, res, next) => {
   if (process.env.NODE_ENV === 'production') {
-    try {
-      const App = require('../browser/App.js').default
-      let context = {}
-      res.send(
-        render(
-          renderToString(
-            <StaticRouter location={req.url} context={context}>
-              <App />
-            </StaticRouter>
-          )
-        )
-      )
-    } catch (e) {
-      console.error(e)
+    const App = require('../browser/App.js').default
+    let context = {}
+    const content = renderToString(
+      <StaticRouter location={req.url} context={context}>
+        <App />
+      </StaticRouter>
+    )
+    switch (context.status) {
+      case 302:
+        return res.redirect(302, context.url)
+      case 404:
+        return res.status(404)
     }
+    res.send(render(content))
   } else {
     res.send(render(''))
   }

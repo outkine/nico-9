@@ -18,7 +18,7 @@ if (firebase.apps.length === 0) {
 
 export const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql',
-  request: async operation => {
+  request: async (operation) => {
     const token = localStorage.getItem('token')
     operation.setContext({
       headers: {
@@ -28,9 +28,9 @@ export const client = new ApolloClient({
   },
   onError: ({ networkError }) => {
     // eslint-disable-next-line
-    console.error(networkError?.result)
+    // console.error(networkError?.result)
     // eslint-disable-next-line
-    networkError?.result?.errors?.forEach(err => console.error(err.message))
+    networkError?.result?.errors?.forEach((err) => console.error(err.message))
   },
 })
 

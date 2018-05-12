@@ -8,10 +8,9 @@ import { HOME_URI, LOGIN_URI, SIGNUP_URI } from '../Routes'
 
 const provider = new firebase.auth.GoogleAuthProvider()
 
-const CLIENT_ID =
-  '810541216828-u6mqqjil5i6l3eii11gelm4u4dmn46g2.apps.googleusercontent.com'
+const CLIENT_ID = '810541216828-u6mqqjil5i6l3eii11gelm4u4dmn46g2.apps.googleusercontent.com'
 
-export async function login () {
+export async function login() {
   const {
     credential: { accessToken },
   } = await firebase.auth().signInWithPopup(provider)
@@ -40,7 +39,7 @@ export async function login () {
   if (data.user) {
     history.replace(HOME_URI)
   } else {
-    await client.mutation({
+    await client.mutate({
       mutation: gql`
         mutation($id: ID!, $input: createUserInput!) {
           createUser(id: $id, input: $input) {
@@ -58,7 +57,7 @@ export async function login () {
 }
 window.login = login
 
-export function logout () {
+export function logout() {
   window.localStorage.removeItem('token')
   window.localStorage.removeItem('exp')
   window.localStorage.removeItem('id')
@@ -66,7 +65,7 @@ export function logout () {
 }
 window.logout = logout
 
-export function isAuthenticated () {
+export function isAuthenticated() {
   return Date.now() < parseInt(window.localStorage.getItem('exp')) * 1000
 }
 window.isAuthenticated = isAuthenticated

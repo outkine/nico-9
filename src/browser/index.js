@@ -10,14 +10,14 @@ export const history = createHistory()
 
 let render_ = process.env.NODE_ENV === 'production' ? hydrate : render
 
-const renderHot = Component =>
+const renderHot = (Component) =>
   render_(
     <AppContainer>
       <Router history={history}>
         <Component />
       </Router>
     </AppContainer>,
-    document.getElementById('app')
+    document.getElementById('app'),
   )
 
 renderHot(App)

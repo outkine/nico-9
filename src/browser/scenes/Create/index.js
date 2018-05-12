@@ -1,36 +1,31 @@
 import React from 'react'
-import { ConnectHOC, mutation } from 'urql'
+import { Mutation } from 'react-apollo'
+import gql from 'graphql-tag'
 
-@ConnectHOC({
-  mutation: {
-    updateUser: mutation(`
-      mutation($input: updateUserInput!) {
-        updateUser(input: $input) {
-          writeTime
-        }
-      }
-    `),
-  },
-})
-export default class Home extends React.Component {
-  render () {
-    console.log(this.props.error, this.props.error?.response)
-    console.dir(this.props.error)
+export default class Create extends React.Component {
+  render() {
     return (
-      <div>
-        <input ref={el => (this.username = el)} />
-        <input ref={el => (this.bio = el)} />
-        <button
-          onClick={() =>
-            this.props.updateUser({
-              id: window.localStorage.getItem('id'),
-              input: { username: this.username.value, bio: this.bio.value },
-            })
+      <Mutation
+        mutation={gql`
+          mutation($id: ID!, $input: updateUserInput!) {
+            updateUser(id: $id, input: $input) {
+              writeTime
+            }
           }
-        >
-          sign up
-        </button>
-      </div>
+        `}
+        variables={{
+          id: window.localStorage.getItem('id'),
+          input: { username: this.username.value, bio: this.bio.value },
+        }}
+      >
+        {(updateUser) => (
+          <div>
+            <input ref={(el) => (this.username = el)} />
+            <input ref={(el) => (this.bio = el)} />
+            <button onClick={updateUser}>sign up</button>
+          </div>
+        )}
+      </Mutation>
     )
   }
 }

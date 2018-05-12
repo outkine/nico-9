@@ -29,6 +29,11 @@ module.exports = {
     'quote-props': ['error', 'consistent-as-needed'],
     'no-return-assign': 'off',
     'react/prop-types': 'off',
+    'arrow-parens': ['error', 'always'],
+    'space-before-function-paren': [
+      'error',
+      { anonymous: 'always', named: 'never', asyncArrow: 'always' },
+    ],
   },
   plugins: ['standard', 'import', 'promise', 'react'],
   settings: {
