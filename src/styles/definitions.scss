@@ -1,0 +1,15 @@
+$color: (
+  background: #ededed,
+  foreground: #c4c4c4,
+  primary1: #57a5e9,
+  primary1Light: #83c3fa,
+  primary2: #be426c,
+  primary2Light: #fc739c
+);
+
+@mixin standard-border {
+  border: 8px solid black;
+  border-radius: 10;
+}
+
+$border-radius: 18px;

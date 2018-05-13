@@ -1,20 +1,9 @@
 import React from 'react'
 import Routes from './Routes'
-import * as firebase from 'firebase'
+import 'isomorphic-fetch'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
-import './styles/index.scss'
-
-if (firebase.apps.length === 0) {
-  firebase.initializeApp({
-    apiKey: 'AIzaSyCyAK_9E6glU2EOy5GzF0ayOxhqzvrvgIg',
-    authDomain: 'event0-portal.firebaseapp.com',
-    databaseURL: 'https://event0-portal.firebaseio.com',
-    projectId: 'event0-portal',
-    storageBucket: 'event0-portal.appspot.com',
-    messagingSenderId: '810541216828',
-  })
-}
+import '../styles/index.scss'
 
 export const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql',
@@ -28,9 +17,9 @@ export const client = new ApolloClient({
   },
   onError: ({ networkError }) => {
     // eslint-disable-next-line
-    // console.error(networkError?.result)
-    // eslint-disable-next-line
     networkError?.result?.errors?.forEach((err) => console.error(err.message))
+    // eslint-disable-next-line
+    networkError?.result?.error && console.log(networkError.result.error)
   },
 })
 

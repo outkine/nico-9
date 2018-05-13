@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, hydrate } from 'react-dom'
+import { hydrate, render } from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import { Router } from 'react-router-dom'
 import createHistory from 'history/createBrowserHistory'
@@ -17,7 +17,7 @@ const renderHot = (Component) =>
         <Component />
       </Router>
     </AppContainer>,
-    document.getElementById('app'),
+    document.getElementById('app')
   )
 
 renderHot(App)

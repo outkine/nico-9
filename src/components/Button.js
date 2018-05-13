@@ -2,5 +2,7 @@ import React from 'react'
 import './Button.scss'
 
 export default ({ children, type, ...other }) => (
-  <button {...other}>{children}</button>
+  <button styleName={type} {...other}>
+    {children}
+  </button>
 )

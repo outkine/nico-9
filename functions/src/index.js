@@ -4,9 +4,8 @@ import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import morgan from 'morgan'
-import React from 'react'
+import react from 'react'
 import { renderToString } from 'react-dom/server'
-import { StaticRouter } from 'react-router-dom'
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 import * as admin from 'firebase-admin'
 import * as functions from 'firebase-functions'
@@ -87,23 +86,7 @@ if (process.env.NODE_ENV === 'development') {
   )
 }
 
-function render(html) {
-  return `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>event0 portal</title>
-      </head>
-
-      <body>
-        <div id="app">${html}</div>
-        <script src="bundle.js"></script>
-      </body>
-    </html>
-  `
-}
-
-if (process.env.NODE_ENV === 'development') {
+if (process.env.HOT) {
   const webpack = require('webpack')
   const config = require('../../webpack.config.browser')
   const compiler = webpack(config)
@@ -115,19 +98,32 @@ if (process.env.NODE_ENV === 'development') {
     })
   )
   app.get('*', require('webpack-hot-middleware')(compiler))
-} else if (process.env.NODE_ENV === 'production') {
+} else {
   app.get('*', express.static(path.resolve('public')))
+}
+function render(html) {
+  return `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>event0 portal</title>
+        <link rel="stylesheet" href="main.css">
+      </head>
+
+      <body>
+        <div id="app">${html}</div>
+      </body>
+    </html>
+  `
 }
 
 app.get('*', (req, res, next) => {
-  if (process.env.NODE_ENV === 'production') {
-    const App = require('../browser/App.js').default
+  if (process.env.HOT) {
+    res.send(render(''))
+  } else {
+    const App = react.createFactory(require('../build/server.bundle.js').default)
     let context = {}
-    const content = renderToString(
-      <StaticRouter location={req.url} context={context}>
-        <App />
-      </StaticRouter>
-    )
+    const content = renderToString(App({ url: req.url, context }))
     switch (context.status) {
       case 302:
         return res.redirect(302, context.url)
@@ -135,12 +131,10 @@ app.get('*', (req, res, next) => {
         return res.status(404)
     }
     res.send(render(content))
-  } else {
-    res.send(render(''))
   }
 })
 
-export const server = functions.https.onRequest(app)
+module.exports.server = functions.https.onRequest(app)
 if (process.env.NODE_ENV === 'development') {
   app.listen(3000, () => console.log('Listening on http://localhost:3000'))
 }

@@ -6,5 +6,5 @@ export default ({ children, data }) => {
   } else if (data.error) {
     return <p>Error: {data.error}</p>
   }
-  return React.cloneElement(children, data)
+  return children
 }

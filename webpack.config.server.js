@@ -1,16 +1,41 @@
 const path = require('path')
-const baseConfig = require('./webpack.config')
+const webpack = require('webpack')
 // const nodeExternals = require('webpack-node-externals')
+const merge = require('webpack-merge')
 
-module.exports = Object.assign(baseConfig, {
-  mode: process.env.NODE_ENV,
-  entry: ['@babel/polyfill', './src/server/index.js'],
+const baseConfig = require('./webpack.config')
+
+module.exports = merge.smart(baseConfig, {
+  entry: ['@babel/polyfill', './src/containers/ServerApp.js'],
   target: 'node',
   // externals: [nodeExternals()],
   output: {
-    path: path.resolve('functions'),
-    filename: 'index.js',
+    path: path.resolve('functions/build'),
+    filename: 'server.bundle.js',
     publicPath: '/',
     libraryTarget: 'commonjs2',
   },
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 1,
+              localIdentName: '[name]__[local]___[hash:base64:5]',
+            },
+          },
+          'sass-loader',
+        ],
+      },
+    ],
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      __isBrowser__: 'false',
+    }),
+  ],
 })

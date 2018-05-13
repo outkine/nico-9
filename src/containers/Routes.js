@@ -1,8 +1,8 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
-import { isAuthenticated } from 'common/auth'
-import * as scenes from './scenes'
+// import { isAuthenticated, validate } from 'common/auth'
+import * as scenes from 'scenes'
 
 export const LOGIN_URI = '/login'
 export const HOME_URI = '/'
@@ -28,8 +28,8 @@ const routes = [
 
 function protectedRoute(Component, authenticated) {
   return (props) => {
-    console.log(Component, authenticated, props)
-    const auth = isAuthenticated()
+    // const auth = isAuthenticated()
+    const auth = true
     if ((authenticated && auth) || (!authenticated && !auth)) {
       return <Component {...props} />
     } else {
@@ -44,6 +44,14 @@ function protectedRoute(Component, authenticated) {
 
 export default () => (
   <Switch>
+    <Route
+      path="/oauth2callback"
+      render={(props) => {
+        const params = new URLSearchParams(props.location.hash.substr(1))
+        // validate(params.get('access_token'))
+        return <p>loading...</p>
+      }}
+    />
     {routes.map((route) => {
       return (
         <Route

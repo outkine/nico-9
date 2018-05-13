@@ -60,7 +60,5 @@ typings/
 # next.js build output
 .next
 
-dist
-.serverless
-client_secret.json
 secret*
+*.bundle.js

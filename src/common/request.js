@@ -1,6 +1,6 @@
 import querystring from 'querystring'
 
-async function request (path, options) {
+async function request(path, options) {
   const response = await fetch(path, options)
   if (response.status === 404 || response.status === 200) {
     return response.json()
@@ -10,7 +10,7 @@ async function request (path, options) {
   }
 }
 
-export async function post (path, data) {
+export async function post(path, data) {
   return request(path, {
     method: 'POST',
     body: JSON.stringify(data),
@@ -20,11 +20,11 @@ export async function post (path, data) {
   })
 }
 
-export async function get (path, data) {
+export async function get(path, data) {
   return request(path + '?' + querystring.stringify(data), {})
 }
 
-export async function cors (method, endpoint, data) {
+export async function cors(method, endpoint, data) {
   const form = document.createElement('form')
   form.setAttribute('method', method)
   form.setAttribute('action', endpoint)

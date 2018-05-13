@@ -1,0 +1,6 @@
+@import './fixes.scss';
+@import './definitions.scss';
+
+button {
+  @include standard-border;
+}
