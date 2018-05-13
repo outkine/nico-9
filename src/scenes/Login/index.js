@@ -1,14 +1,16 @@
 import React from 'react'
 import { login } from 'common/auth'
 
-import { Badge } from 'components'
+import { Badge, Button } from 'components'
 
 export default class Login extends React.Component {
   render() {
     return (
       <div>
         <Badge />
-        <button onClick={login}>Log in!</button>
+        <Button onClick={login} orientation="center">
+          Log in!
+        </Button>
       </div>
     )
   }
