@@ -14,7 +14,7 @@ export function login() {
   cors('GET', 'https://accounts.google.com/o/oauth2/v2/auth', {
     client_id: CLIENT_ID,
     redirect_uri: REDIRECT,
-    response_type: 'code',
+    response_type: 'token',
     scope: 'https://www.googleapis.com/auth/userinfo.email',
   })
 }

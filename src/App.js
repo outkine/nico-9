@@ -23,7 +23,7 @@ export const client = new ApolloClient({
     // eslint-disable-next-line
     networkError?.result?.errors?.forEach((err) => console.error(err.message))
     // eslint-disable-next-line
-    networkError?.result?.error && console.log(networkError.result.error)
+    networkError?.result?.error && console.error(networkError.result.error)
   },
 })
 

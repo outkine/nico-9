@@ -3,7 +3,7 @@
     "dev": "NODE_ENV=development webpack-dev-server --hot",
     "build": "rimraf dist && NODE_ENV=production webpack",
     "test": "eslint src",
-    "format": "prettier-eslint src"
+    "format": "prettier-eslint src/**/*.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.46",
