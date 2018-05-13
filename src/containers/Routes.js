@@ -1,7 +1,7 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
-// import { isAuthenticated, validate } from 'common/auth'
+import { isAuthenticated, validate } from 'common/auth'
 import * as scenes from 'scenes'
 
 export const LOGIN_URI = '/login'
@@ -28,8 +28,7 @@ const routes = [
 
 function protectedRoute(Component, authenticated) {
   return (props) => {
-    // const auth = isAuthenticated()
-    const auth = true
+    const auth = isAuthenticated()
     if ((authenticated && auth) || (!authenticated && !auth)) {
       return <Component {...props} />
     } else {
@@ -47,8 +46,10 @@ export default () => (
     <Route
       path="/oauth2callback"
       render={(props) => {
-        const params = new URLSearchParams(props.location.hash.substr(1))
-        // validate(params.get('access_token'))
+        if (window) {
+          const params = new URLSearchParams(window.location.hash)
+          validate(params.get('access_token'))
+        }
         return <p>loading...</p>
       }}
     />

@@ -1,6 +1,9 @@
 import React from 'react'
 import Routes from './Routes'
+
 import 'isomorphic-fetch'
+import 'url-search-params-polyfill'
+
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 import '../styles/index.scss'

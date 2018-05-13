@@ -1,5 +1,10 @@
 {
+  "scripts": {
+    "deploy": "firebase deploy",
+    "serve": "firebase serve"
+  },
   "dependencies": {
+    "@babel/polyfill": "^7.0.0-beta.46",
     "apollo-server-express": "^1.3.6",
     "cors": "^2.8.4",
     "express": "^4.16.3",

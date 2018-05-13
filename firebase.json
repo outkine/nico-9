@@ -7,5 +7,8 @@
         "function": "server"
       }
     ]
+  },
+  "functions": {
+    "source": "functions/dist"
   }
 }

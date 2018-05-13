@@ -1,17 +1,17 @@
-function capitalize (string) {
+function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
-async function processSingle (promise) {
+async function processSingle(promise) {
   const result = await promise
   return result.exists ? result.data() : null
 }
 
-async function processMultiple (promise) {
+async function processMultiple(promise) {
   return (await promise).docs
 }
 
-export async function get (name) {
+export async function get(name) {
   return {
     [name]: async (_, { id }, { db }) =>
       processSingle(
@@ -23,14 +23,13 @@ export async function get (name) {
   }
 }
 
-export function getAll (name) {
+export function getAll(name) {
   return {
-    [name + 's']: (_, args, { db }) =>
-      processMultiple(db.collection(name).get()),
+    [name + 's']: (_, args, { db }) => processMultiple(db.collection(name).get()),
   }
 }
 
-export function create (name) {
+export function create(name) {
   return {
     ['create' + capitalize(name)]: (_, { id, ...other }, { db }) =>
       db
@@ -40,7 +39,7 @@ export function create (name) {
   }
 }
 
-export function update (name) {
+export function update(name) {
   return {
     ['update' + capitalize(name)]: (_, { id, ...other }, { db }) =>
       db
@@ -50,7 +49,7 @@ export function update (name) {
   }
 }
 
-export function del (name) {
+export function del(name) {
   return {
     ['delete' + capitalize(name)]: (_, { id }, { db }) =>
       db
@@ -60,7 +59,7 @@ export function del (name) {
   }
 }
 
-export default function (db, name) {
+export default function(db, name) {
   return {
     Query: {
       ...get(db, name),

@@ -1,3 +1,5 @@
+import '@babel/polyfill'
+
 import path from 'path'
 import fetch from 'node-fetch'
 import express from 'express'
@@ -10,9 +12,9 @@ import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 import * as admin from 'firebase-admin'
 import * as functions from 'firebase-functions'
 
-import serviceAccount from './secret-firebase'
-import googleSecret from './secret-google'
-import testingSecret from './secret-testing'
+import serviceAccount from '../secret-firebase'
+import googleSecret from '../secret-google'
+import testingSecret from '../secret-testing'
 import schema from './schema'
 
 admin.initializeApp({
@@ -112,6 +114,7 @@ function render(html) {
 
       <body>
         <div id="app">${html}</div>
+        <script src="client.bundle.js"></script>
       </body>
     </html>
   `
@@ -123,6 +126,7 @@ app.get('*', (req, res, next) => {
   } else {
     const App = react.createFactory(require('../build/server.bundle.js').default)
     let context = {}
+    console.log(req.originalUrl)
     const content = renderToString(App({ url: req.url, context }))
     switch (context.status) {
       case 302:

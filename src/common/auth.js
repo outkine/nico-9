@@ -4,9 +4,8 @@ import gql from 'graphql-tag'
 
 import { HOME_URI, LOGIN_URI, SIGNUP_URI } from 'containers/Routes'
 
-let history
-if (process.env.__isBrowser__) {
-  history = import('containers/ClientApp').history
+function history() {
+  return require('containers/ClientApp').history
 }
 
 const CLIENT_ID = '810541216828-u6mqqjil5i6l3eii11gelm4u4dmn46g2.apps.googleusercontent.com'
@@ -29,7 +28,7 @@ export async function validate(token) {
     access_token: token,
   })
   if (auth.aud !== CLIENT_ID) {
-    history.replace(LOGIN_URI)
+    history().replace(LOGIN_URI)
   }
   window.localStorage.setItem('token', token)
   window.localStorage.setItem('exp', auth.exp)
@@ -47,7 +46,7 @@ export async function validate(token) {
   })
 
   if (data.user) {
-    history.replace(HOME_URI)
+    history().replace(HOME_URI)
   } else {
     await client.mutate({
       mutation: gql`
@@ -62,19 +61,18 @@ export async function validate(token) {
         input: { email: auth.email, username: auth.email.split('@')[0] },
       },
     })
-    history.replace(SIGNUP_URI)
+    history().replace(SIGNUP_URI)
   }
 }
 
 export function logout() {
   window.localStorage.removeItem('token')
   window.localStorage.removeItem('exp')
-  window.localStorage.removeItem('id')
-  history.push(LOGIN_URI)
+  history().push(LOGIN_URI)
 }
 
 export function isAuthenticated() {
-  if (process.env.__isBrowser__) {
+  if (!process.env.__isBrowser__) {
     return false
   }
   return Date.now() < parseInt(window.localStorage.getItem('exp')) * 1000
