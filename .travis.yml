@@ -2,12 +2,20 @@ language: node_js
 node_js:
 - 8.1
 cache: yarn
+
 install:
 - yarn
+
 script:
 - yarn test
 - yarn build
+
+before_deploy:
+  - yarn global add netlify-cli
+
 deploy:
-  provider: firebase
-  token:
-    secure: PkRRoAlOgKMQpwizoBQ9pkTHoLXaATKpF3A0tSyhE0nbhFKC/QkwvW9bSD8yk2fXxTQx6AgvNEUjiiNn0ufjJPMqRfiljOTHEtDRmjUY7yvZ2qD/VQP3AdCkooelRJ+kMRQfvOekzPt6VmezBawMgaLGu/q7GOOP1cl4s6iEBAN1o9y4vhlz9l3m5GTg5dhwUJO8mR3wjYfA/dxYIeyse1XKm9HF45ruNdQDf8eH+mh1v23O7dH6HkHxLWfr+nBBJ2HWlW6UYH/JJIgzvrEfsjzW5XGffnv2JSf7+v0hfeIzVi57SUvlSQDX+Hkm7Ns0KZsGW4eQJGJQt2GhteEJEA1Z1FK57dNme3fjBHFWYdxErhPw6azNwd+0eOt66hDYa8lMyQNMNwRbk+dmOIZI3qKkKnTA+JePjLRQxRN44OBylyR1ZCKBZh/cNlYKF6j/9iPKDaGp85vEZI+NY7UfODtOEo+rQ5gr1JPKeVIiKcILvljASdGu+nzctVDIhC+Hgh/2nLiwL+L/55MzE8EEID+rDO7Knqxgj5stEokhSRCX43fi3FxcYePJ7u3IW4eGD+I72e2IOssoKqUUQOxGq/IGtD7pkK1dg46tSvYVhVoWW4wOZIWD/sd4oLkoDAYqPc9lsCtlc0uPbO3EW1OwjPHWurjKWkIWheCBC1h1gyU=
+  provider: script
+  script: netlify deploy -s $NETLIFY_SITE_ID -t $NETLIFY_ACCESS_TOKEN -p ./build
+  skip_cleanup: true
+  on:
+    branch: master

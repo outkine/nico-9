@@ -46,10 +46,8 @@ export default () => (
     <Route
       path="/oauth2callback"
       render={(props) => {
-        if (window) {
-          const params = new URLSearchParams(window.location.hash)
-          validate(params.get('access_token'))
-        }
+        const params = new URLSearchParams(props.location.hash[0])
+        validate(params.get('access_token'))
         return <p>loading...</p>
       }}
     />

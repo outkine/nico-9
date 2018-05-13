@@ -39,7 +39,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       webpack: {
-        config: path.resolve('webpack.config.browser.js'),
+        config: path.resolve('webpack.config.js'),
       },
     },
   },

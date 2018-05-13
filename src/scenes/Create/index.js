@@ -4,7 +4,7 @@ import gql from 'graphql-tag'
 
 import { GraphqlWrapper } from 'components'
 
-import { HOME_URI } from 'containers/Routes'
+import { HOME_URI } from 'Routes'
 
 export default class Create extends React.Component {
   render() {

@@ -1,12 +1,13 @@
 import React from 'react'
-import Routes from './Routes'
-
-import 'isomorphic-fetch'
-import 'url-search-params-polyfill'
-
+import { Router } from 'react-router-dom'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
-import '../styles/index.scss'
+import createHistory from 'history/createBrowserHistory'
+
+import Routes from './Routes'
+import './styles/index.scss'
+
+export const history = createHistory()
 
 export const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql',
@@ -27,7 +28,9 @@ export const client = new ApolloClient({
 })
 
 export default () => (
-  <ApolloProvider client={client}>
-    <Routes />
-  </ApolloProvider>
+  <Router history={history}>
+    <ApolloProvider client={client}>
+      <Routes />
+    </ApolloProvider>
+  </Router>
 )
