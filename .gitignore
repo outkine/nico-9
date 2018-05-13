@@ -62,4 +62,4 @@ typings/
 
 *.bundle.js
 dist
-build/*
+build
