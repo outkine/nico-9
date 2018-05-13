@@ -2,4 +2,12 @@
 
 .main {
   @include standard-border;
+  background: map_get($color, primary);
+  font-size: nth($font-size, 2);
+  margin-top: 50px;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
 }

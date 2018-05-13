@@ -1,9 +1,10 @@
 @import './fixes.scss';
 @import './definitions.scss';
 
-button {
-  @include standard-border;
-  padding: 10px;
+body,
+button,
+input {
+  font-family: Source Code Pro;
 }
 
 img {

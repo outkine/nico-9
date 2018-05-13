@@ -1,8 +1,6 @@
 import React from 'react'
 import './Button.scss'
 
-export default ({ children, type, ...other }) => (
-  <button styleName={type} {...other}>
-    {children}
-  </button>
+export default ({ children, orientation }) => (
+  <button styleName={'main ' + orientation}>{children}</button>
 )
