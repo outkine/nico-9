@@ -13,7 +13,7 @@ module.exports = {
   output: {
     path: path.resolve('dist'),
     filename: 'bundle.js',
-    publicPath: '/',
+    publicPath: '/assets/',
   },
   plugins: [new MiniCssExtractPlugin()],
   module: {
@@ -32,24 +32,24 @@ module.exports = {
             options: {
               modules: true,
               importLoaders: 1,
-              localIdentName: '[name]__[local]___[hash:base64:5]',
+              localIdentName: '[name]__[local]__[hash:base64:5]',
             },
           },
           'sass-loader',
         ],
       },
-      {
-        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 1000,
-              name: 'assets/[hash].[ext]',
-            },
-          },
-        ],
-      },
+      // {
+      //   test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+      //   use: [
+      //     {
+      //       loader: 'url-loader',
+      //       options: {
+      //         limit: 1000,
+      //         name: 'assets/[hash].[ext]',
+      //       },
+      //     },
+      //   ],
+      // },
     ],
   },
   stats: 'minimal',
@@ -57,5 +57,6 @@ module.exports = {
     contentBase: path.join(__dirname, 'dist'),
     historyApiFallback: true,
     stats: 'minimal',
+    publicPath: '/assets/',
   },
 }

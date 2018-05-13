@@ -1,4 +1,6 @@
-html, body, #app {
+html,
+body,
+#app {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -9,13 +11,19 @@ html, body, #app {
 body * {
   margin: 0;
 }
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
-button, input, select {
+button,
+input,
+select {
   border: 0;
 }
-button:focus, input:focus, select:focus {
+button:focus,
+input:focus,
+select:focus {
   outline: 0;
 }
 p {

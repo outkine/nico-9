@@ -1,15 +1,28 @@
 $color: (
-  background: #ededed,
-  foreground: #c4c4c4,
-  primary1: #57a5e9,
-  primary1Light: #83c3fa,
-  primary2: #be426c,
-  primary2Light: #fc739c
+  background: white,
+  foreground: #e5e5e5,
+  primary: #e85a5a,
+  secondary1: #b9a4db,
+  secondary2: #e9cf8b,
+  primaryfont: black,
+  secondaryfont: #7a7a7a
 );
 
+$border-radius: 4px;
+
 @mixin standard-border {
-  border: 8px solid black;
-  border-radius: 10;
+  border: 4px solid black;
+  border-radius: $border-radius;
 }
 
-$border-radius: 18px;
+@mixin breakpoint($size) {
+  @if $size == 1 {
+    @media (max-width: 1300px) {
+      @content;
+    }
+  } @else if $size == 2 {
+    @media (max-width: 900px) {
+      @content;
+    }
+  }
+}

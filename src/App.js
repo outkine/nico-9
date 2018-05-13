@@ -34,3 +34,5 @@ export default () => (
     </ApolloProvider>
   </Router>
 )
+
+console.log(1)

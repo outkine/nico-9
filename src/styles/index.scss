@@ -3,4 +3,9 @@
 
 button {
   @include standard-border;
+  padding: 10px;
+}
+
+img {
+  margin: auto;
 }
