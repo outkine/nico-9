@@ -24,7 +24,20 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.scss$/,
+        test: /\.global\.scss$/,
+        use: [
+          process.env.HOT ? 'style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+            },
+          },
+          'sass-loader',
+        ],
+      },
+      {
+        test: /^((?!\.global).)*\.scss$/,
         use: [
           process.env.HOT ? 'style-loader' : MiniCssExtractPlugin.loader,
           {

@@ -5,7 +5,7 @@ import { ApolloProvider } from 'react-apollo'
 import createHistory from 'history/createBrowserHistory'
 
 import Routes from './Routes'
-import './styles/index.scss'
+import './styles/index.global.scss'
 
 export const history = createHistory()
 
@@ -34,5 +34,3 @@ export default () => (
     </ApolloProvider>
   </Router>
 )
-
-console.log(1)

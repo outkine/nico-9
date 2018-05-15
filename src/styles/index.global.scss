@@ -1,0 +1,46 @@
+@import './fixes.global.scss';
+@import './definitions.global.scss';
+
+body,
+button,
+input {
+  font-family: Source Code Pro;
+}
+
+img {
+  margin: auto;
+}
+
+.vertical-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.row {
+  display: flex;
+}
+
+.outer {
+  height: 100%;
+}
+
+button,
+input {
+  @include standard-border;
+  font-size: nth($font-size, 2);
+}
+
+button {
+  background: map_get($color, primary);
+}
+
+input {
+  height: 100%;
+  width: 400px;
+}

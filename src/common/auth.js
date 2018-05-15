@@ -42,7 +42,7 @@ export async function validate(token) {
   window.localStorage.setItem('exp', auth.exp)
   window.localStorage.setItem('id', auth.sub)
 
-  const data = await client.query({
+  const { data } = await client.query({
     query: gql`
       query($id: ID!) {
         user(id: $id) {

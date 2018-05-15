@@ -21,20 +21,22 @@ export default class Create extends React.Component {
       >
         {(updateUser, data) => (
           <GraphqlWrapper data={data}>
-            <input ref={(el) => (this.username = el)} />
-            <input ref={(el) => (this.bio = el)} />
-            <button
-              onClick={() => {
-                updateUser({
-                  variables: {
-                    id: window.localStorage.getItem('id'),
-                    input: { username: this.username.value, bio: this.bio.value },
-                  },
-                })
-              }}
-            >
-              sign up
-            </button>
+            <div className="row">
+              <input placeholder="username" ref={(el) => (this.username = el)} />
+              <input placeholder="bio" ref={(el) => (this.bio = el)} />
+              <button
+                onClick={() => {
+                  updateUser({
+                    variables: {
+                      id: window.localStorage.getItem('id'),
+                      input: { username: this.username.value, bio: this.bio.value },
+                    },
+                  })
+                }}
+              >
+                sign up
+              </button>
+            </div>
           </GraphqlWrapper>
         )}
       </Mutation>

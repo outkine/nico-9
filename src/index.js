@@ -8,13 +8,15 @@ const renderHot = (Component) =>
     <AppContainer>
       <Component />
     </AppContainer>,
-    document.getElementById('app')
+    document.getElementById('app'),
   )
 
 renderHot(App)
 
 if (module.hot) {
+  console.log('hot')
   module.hot.accept('./App', () => {
+    console.log('accept')
     const NextApp = require('./App').default
     renderHot(NextApp)
   })
