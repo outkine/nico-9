@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "dev": "NODE_ENV=development HOT=1 webpack-dev-server",
+        "dev": "NODE_ENV=development HOT=1 webpack-dev-server --hot",
         "build": "rimraf dist && NODE_ENV=production webpack",
         "test": "eslint src",
         "format": "prettier-eslint src/**/*.js"

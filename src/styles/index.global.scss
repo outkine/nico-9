@@ -30,6 +30,13 @@ img {
   height: 100%;
 }
 
+.error {
+  @include standard-border;
+  border-color: map_get($color, error);
+  font-size: nth($font-size, 2);
+  display: inline-block;
+}
+
 button,
 input {
   @include standard-border;
@@ -38,6 +45,8 @@ input {
 
 button {
   background: map_get($color, primary);
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 input {

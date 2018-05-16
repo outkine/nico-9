@@ -1,9 +1,7 @@
 import React from 'react'
-import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import { GraphqlWrapper } from 'components'
-
+import { Mutation } from 'components'
 import { HOME_URI } from 'Routes'
 
 export default class Create extends React.Component {
@@ -11,16 +9,16 @@ export default class Create extends React.Component {
     return (
       <Mutation
         mutation={gql`
-          mutation($id: ID!, $input: updateUserInput!) {
-            updateUser(id: $id, input: $input) {
-              writeTime
+          mutation($input: updateUserInput!) {
+            updateUser(input: $input) {
+              id
             }
           }
         `}
         onCompleted={() => this.props.history.push(HOME_URI)}
       >
-        {(updateUser, data) => (
-          <GraphqlWrapper data={data}>
+        {(updateUser, { error }) => (
+          <div>
             <div className="row">
               <input placeholder="username" ref={(el) => (this.username = el)} />
               <input placeholder="bio" ref={(el) => (this.bio = el)} />
@@ -28,7 +26,6 @@ export default class Create extends React.Component {
                 onClick={() => {
                   updateUser({
                     variables: {
-                      id: window.localStorage.getItem('id'),
                       input: { username: this.username.value, bio: this.bio.value },
                     },
                   })
@@ -37,7 +34,8 @@ export default class Create extends React.Component {
                 sign up
               </button>
             </div>
-          </GraphqlWrapper>
+            {error && <p className="error">Error: {error}</p>}
+          </div>
         )}
       </Mutation>
     )

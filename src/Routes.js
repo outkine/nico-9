@@ -20,6 +20,16 @@ const routes = [
     authenticated: true,
   },
   {
+    path: '/voting',
+    component: scenes.Voting,
+    authenticated: true,
+  },
+  {
+    path: '/new-project',
+    component: scenes.NewProject,
+    authenticated: true,
+  },
+  {
     path: HOME_URI,
     component: scenes.Home,
     authenticated: true,
