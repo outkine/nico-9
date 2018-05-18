@@ -50,6 +50,11 @@ button {
   margin-bottom: 10px;
 }
 
+button:disabled {
+  background: map_get($color, foreground);
+  color: map_get($color, border);
+}
+
 input {
   height: 100%;
   width: 400px;
@@ -69,4 +74,8 @@ input {
   height: $border-width;
   background: map_get($color, border);
   margin: 20px;
+}
+
+.no-select {
+  user-select: none;
 }

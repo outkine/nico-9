@@ -11,7 +11,7 @@ export default class Project extends React.Component {
     return (
       <Query
         query={gql`
-          query($id: ID!) {
+          query($id: ID!, $userid: ID!) {
             project(id: $id) {
               id
               claps
@@ -21,23 +21,45 @@ export default class Project extends React.Component {
               polishVotes
               creativityVotes
             }
+            user(id: $userid) {
+              id
+              funVote {
+                id
+              }
+              techVote {
+                id
+              }
+              designVote {
+                id
+              }
+              polishVote {
+                id
+              }
+              creativityVote {
+                id
+              }
+            }
           }
         `}
         variables={{
           id: this.props.project.id,
+          userid: window.localStorage.getItem('id'),
         }}
       >
-        {({ data: { project } }) => (
+        {({ data: { project, user } }) => (
           <div styleName="project">
             <p>{this.props.project.description}</p>
             <div className="seperator" />
             <div className="row">
               <button>download files</button>
-              <Vote project={project} category="creativity" />
-              <Vote project={project} category="design" />
-              <Vote project={project} category="fun" />
-              <Vote project={project} category="tech" />
-              <Vote project={project} category="polish" />
+              {['creativity', 'design', 'polish', 'fun', 'tech'].map((category) => (
+                <Vote
+                  disabled={user[category + 'Vote']?.id === project.id}
+                  key={category}
+                  project={project}
+                  category={category}
+                />
+              ))}
               <Vote project={project} clap />
             </div>
           </div>

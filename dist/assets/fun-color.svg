@@ -15,13 +15,13 @@
    stroke-width="2"
    stroke-linecap="round"
    stroke-linejoin="round"
-   class="feather feather-aperture"
+   class="feather feather-star"
    version="1.1"
-   id="svg16"
-   sodipodi:docname="creativity.svg"
+   id="svg4"
+   sodipodi:docname="fun-color.svg"
    inkscape:version="0.92.2 2405546, 2018-03-11">
   <metadata
-     id="metadata22">
+     id="metadata10">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -33,7 +33,7 @@
     </rdf:RDF>
   </metadata>
   <defs
-     id="defs20" />
+     id="defs8" />
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -45,54 +45,17 @@
      inkscape:pageshadow="2"
      inkscape:window-width="1920"
      inkscape:window-height="1053"
-     id="namedview18"
+     id="namedview6"
      showgrid="false"
-     inkscape:zoom="8"
-     inkscape:cx="-4.6081851"
-     inkscape:cy="33.526656"
+     inkscape:zoom="34.570312"
+     inkscape:cx="6.5039548"
+     inkscape:cy="12"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg16" />
-  <circle
-     cx="12"
-     cy="12"
-     r="10"
-     id="circle2" />
-  <line
-     x1="14.31"
-     y1="8"
-     x2="20.05"
-     y2="17.94"
-     id="line4" />
-  <line
-     x1="9.69"
-     y1="8"
-     x2="21.17"
-     y2="8"
-     id="line6" />
-  <line
-     x1="7.38"
-     y1="12"
-     x2="13.12"
-     y2="2.06"
-     id="line8" />
-  <line
-     x1="9.69"
-     y1="16"
-     x2="3.95"
-     y2="6.06"
-     id="line10" />
-  <line
-     x1="14.31"
-     y1="16"
-     x2="2.83"
-     y2="16"
-     id="line12" />
-  <line
-     x1="16.62"
-     y1="12"
-     x2="10.88"
-     y2="21.94"
-     id="line14" />
+     inkscape:current-layer="svg4" />
+  <polygon
+     points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+     id="polygon2"
+     style="fill:#e85a5a;fill-opacity:1" />
 </svg>

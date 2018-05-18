@@ -58,15 +58,14 @@ export async function validate(token) {
   } else {
     await client.mutate({
       mutation: gql`
-        mutation($id: ID!, $input: createUserInput!) {
-          createUser(id: $id, input: $input) {
-            writeTime
+        mutation($input: createUserInput!) {
+          createUser(input: $input) {
+            id
           }
         }
       `,
       variables: {
-        id: auth.sub,
-        input: { email: auth.email, username: auth.email.split('@')[0] },
+        input: { username: auth.email.split('@')[0] },
       },
     })
     history.replace(SIGNUP_URI)

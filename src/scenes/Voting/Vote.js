@@ -4,7 +4,7 @@ import { withApollo } from 'react-apollo'
 
 import './Vote.scss'
 
-export default withApollo(({ category, clap, project, client }) => {
+export default withApollo(({ category, clap, project, client, disabled, key }) => {
   const result = clap ? 'claps' : category + 'Votes'
   if (clap) category = 'clap'
 
@@ -12,6 +12,8 @@ export default withApollo(({ category, clap, project, client }) => {
     <button
       styleName="main"
       className="row"
+      disabled={disabled}
+      key={key}
       onClick={() =>
         client.mutate({
           ...(clap
@@ -37,19 +39,37 @@ export default withApollo(({ category, clap, project, client }) => {
                   }
                 }
               `,
+                refetchQueries: [
+                  {
+                    query: gql`
+                      query {
+                        user(id: "${window.localStorage.getItem('id')}") {
+                          id
+                          ${category}Vote {
+                            id
+                          }
+                        }
+                        projects {
+                          id
+                          ${category}Votes
+                        }
+                      }
+                  `,
+                  },
+                ],
                 variables: {
                   id: project.id,
                   category,
                 },
               }),
-          optimisticResponse: {
-            __typename: 'Mutation',
-            [clap ? 'clap' : 'vote']: {
-              id: project.id,
-              __typename: 'Project',
-              [result]: project[result] + 1,
-            },
-          },
+          // optimisticResponse: {
+          //   __typename: 'Mutation',
+          //   [clap ? 'clap' : 'vote']: {
+          //     id: project.id,
+          //     __typename: 'Project',
+          //     [result]: project[result] + 1,
+          //   },
+          // },
         })
       }
     >
