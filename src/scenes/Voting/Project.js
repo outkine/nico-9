@@ -1,32 +1,66 @@
 import React from 'react'
 import { Query } from 'components'
 import gql from 'graphql-tag'
+import { withApollo } from 'react-apollo'
 
+@withApollo
 export default class Project extends React.Component {
-  state = { expanded: false }
-
   render() {
+    console.log(this.props)
     return (
-      <div onClick={() => this.setState({ expanded: true })}>
-        <p>{this.props.project.title}</p>
-
-        {this.state.expanded && (
-          <Query
-            query={gql`
-              query($id: ID!) {
-                project(id: $id) {
-                  description
+      <Query
+        query={gql`
+          query($id: ID!) {
+            project(id: $id) {
+              id
+              claps
+            }
+          }
+        `}
+        variables={{
+          id: this.props.project.id,
+        }}
+      >
+        {({ data: { project } }) => (
+          <div>
+            {this.props.project.description}
+            <div className="seperator" />
+            <div className="row">
+              <button>download files</button>
+              <button>votes</button>
+              <button
+                className="row"
+                onClick={() =>
+                  this.props.client.mutate({
+                    mutation: gql`
+                      mutation($id: ID!) {
+                        clap(id: $id) {
+                          id
+                          claps
+                        }
+                      }
+                    `,
+                    variables: {
+                      id: this.props.project.id,
+                    },
+                    optimisticResponse: {
+                      __typename: 'Mutation',
+                      clap: {
+                        id: this.props.project.id,
+                        __typename: 'Project',
+                        claps: project.claps + 1,
+                      },
+                    },
+                  })
                 }
-              }
-            `}
-            variables={{
-              id: this.props.project.id,
-            }}
-          >
-            {({ data: { project } }) => <p>{project.description}</p>}
-          </Query>
+              >
+                <img src="assets/clap.svg" />
+                <p>{project.claps}</p>
+              </button>
+            </div>
+          </div>
         )}
-      </div>
+      </Query>
     )
   }
 }

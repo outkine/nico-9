@@ -19,11 +19,13 @@ export const client = new ApolloClient({
       },
     })
   },
-  onError: ({ networkError }) => {
+  onError: ({ networkError, graphQLErrors }) => {
     // eslint-disable-next-line
     networkError?.result?.errors?.forEach((err) => console.error(err.message))
     // eslint-disable-next-line
     networkError?.result?.error && console.error(networkError.result.error)
+    // eslint-disable-next-line
+    graphQLErrors?.forEach((err) => console.error(err.message))
   },
 })
 

@@ -7,8 +7,12 @@ export default ({ children, ...other }) => (
       if (data.loading) {
         return <p>loading...</p>
       } else if (data.error) {
-        return children({ ...data, error: data.error.graphQLErrors[0].message })
+        // throw new Error(data.error.message)
+        // if (data.error.graphQLErrors?.[0]) {
+        //   return children({ ...data, error: data.error.graphQLErrors[0].message })
+        // }
       } else {
+        console.log(data)
         return children(data)
       }
     }}

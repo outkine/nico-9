@@ -2,6 +2,8 @@ import React from 'react'
 import gql from 'graphql-tag'
 
 import { Query } from 'components'
+import Project from './Project'
+import './index.scss'
 
 export default class Voting extends React.Component {
   state = {
@@ -31,16 +33,14 @@ export default class Voting extends React.Component {
         >
           {({ data: { projects } }) =>
             projects.map((project, i) => (
-              <div
-                className="row"
-                key={project.id}
-                onClick={() => this.setState({ activeProject: project.id })}
-              >
-                <p>{i}</p>
-                <p>{project.title}</p>
-                <p>by</p>
-                <p>{project.author.username}</p>
-                {this.state.activeProject === project.id && <p>{project.description}</p>}
+              <div styleName="project" key={project.id}>
+                <div className="row" onClick={() => this.setState({ activeProject: project.id })}>
+                  <p>{i + 1}</p>
+                  <p className="highlight color1">{project.title}</p>
+                  <p>by</p>
+                  <p className="highlight color2">{project.author.username}</p>
+                </div>
+                {this.state.activeProject === project.id && <Project project={project} />}
               </div>
             ))
           }
