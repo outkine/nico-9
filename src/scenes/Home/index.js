@@ -9,6 +9,9 @@ export default class Home extends React.Component {
         <Badge />
         <button onClick={() => this.props.history.push('/voting')}>vote</button>
         <button onClick={() => this.props.history.push('/new-project')}>create project</button>
+        <button onClick={() => (window.location.href = 'https://join.slack.com/t/chicode/signup')}>
+          talk on slack
+        </button>
         <button onClick={logout}>logout</button>
       </Center>
     )
