@@ -2,7 +2,37 @@
 
 .project {
   margin: 10px 0;
+}
+
+.title {
+  margin-bottom: 20px;
+
   * {
     margin: 0 20px;
   }
+}
+
+.toolbar {
+  align-items: center;
+  margin: 0 30px;
+  & > * {
+    margin: 0 30px;
+  }
+}
+
+.categories {
+  justify-content: space-between;
+  align-items: center;
+  background: map_get($color, foreground);
+  // height: 80px;
+  * {
+    padding: 10px;
+    height: 80px;
+  }
+}
+
+.home {
+  justify-content: 10%;
+  padding: 20px;
+  margin-left: auto;
 }

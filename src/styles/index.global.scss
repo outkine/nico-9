@@ -12,10 +12,6 @@ p {
   font-size: nth($font-size, 2);
 }
 
-img {
-  margin: auto;
-}
-
 .vertical-center {
   display: flex;
   flex-direction: column;
@@ -67,4 +63,10 @@ input {
   &.color2 {
     background: map_get($color, secondary2);
   }
+}
+
+.seperator {
+  height: $border-width;
+  background: map_get($color, border);
+  margin: 20px;
 }

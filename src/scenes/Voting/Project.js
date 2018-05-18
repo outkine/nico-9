@@ -1,9 +1,10 @@
 import React from 'react'
 import { Query } from 'components'
 import gql from 'graphql-tag'
-import { withApollo } from 'react-apollo'
 
-@withApollo
+import Vote from './Vote'
+import './Project.scss'
+
 export default class Project extends React.Component {
   render() {
     console.log(this.props)
@@ -14,6 +15,11 @@ export default class Project extends React.Component {
             project(id: $id) {
               id
               claps
+              funVotes
+              techVotes
+              designVotes
+              polishVotes
+              creativityVotes
             }
           }
         `}
@@ -22,41 +28,17 @@ export default class Project extends React.Component {
         }}
       >
         {({ data: { project } }) => (
-          <div>
-            {this.props.project.description}
+          <div styleName="project">
+            <p>{this.props.project.description}</p>
             <div className="seperator" />
             <div className="row">
               <button>download files</button>
-              <button>votes</button>
-              <button
-                className="row"
-                onClick={() =>
-                  this.props.client.mutate({
-                    mutation: gql`
-                      mutation($id: ID!) {
-                        clap(id: $id) {
-                          id
-                          claps
-                        }
-                      }
-                    `,
-                    variables: {
-                      id: this.props.project.id,
-                    },
-                    optimisticResponse: {
-                      __typename: 'Mutation',
-                      clap: {
-                        id: this.props.project.id,
-                        __typename: 'Project',
-                        claps: project.claps + 1,
-                      },
-                    },
-                  })
-                }
-              >
-                <img src="assets/clap.svg" />
-                <p>{project.claps}</p>
-              </button>
+              <Vote project={project} category="creativity" />
+              <Vote project={project} category="design" />
+              <Vote project={project} category="fun" />
+              <Vote project={project} category="tech" />
+              <Vote project={project} category="polish" />
+              <Vote project={project} clap />
             </div>
           </div>
         )}

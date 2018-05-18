@@ -6,7 +6,8 @@ $color: (
   secondary2: #e9cf8b,
   primaryfont: black,
   secondaryfont: #7a7a7a,
-  error: #ff5050
+  error: #ff5050,
+  border: black
 );
 
 $font-size: 100px, 50px, 30px;
@@ -15,7 +16,7 @@ $border-radius: 10px;
 $border-width: 6px;
 
 @mixin standard-border {
-  border: $border-width solid black;
+  border: $border-width solid map_get($color, border);
   border-radius: $border-radius;
 }
 
