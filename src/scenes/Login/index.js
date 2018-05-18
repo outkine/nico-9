@@ -12,7 +12,6 @@ export default class Login extends React.Component {
           Log in!
         </button>
         {window.error && <p className="error">{window.error}</p>}
-        }
       </Center>
     )
   }
