@@ -62,14 +62,14 @@ export default withApollo(({ category, clap, project, client, disabled, key }) =
                   category,
                 },
               }),
-          // optimisticResponse: {
-          //   __typename: 'Mutation',
-          //   [clap ? 'clap' : 'vote']: {
-          //     id: project.id,
-          //     __typename: 'Project',
-          //     [result]: project[result] + 1,
-          //   },
-          // },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            [clap ? 'clap' : 'vote']: {
+              id: project.id,
+              __typename: 'Project',
+              [result]: project[result] + 1,
+            },
+          },
         })
       }
     >
