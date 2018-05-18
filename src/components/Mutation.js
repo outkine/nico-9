@@ -4,6 +4,7 @@ import { Mutation } from 'react-apollo'
 export default ({ children, ...other }) => (
   <Mutation {...other}>
     {(mutate, data) => {
+      console.log(data)
       if (data.loading) {
         return <p>loading...</p>
       } else if (data.error) {

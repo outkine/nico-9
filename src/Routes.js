@@ -30,6 +30,11 @@ const routes = [
     authenticated: true,
   },
   {
+    path: '/edit-project',
+    component: scenes.EditProject,
+    authenticated: true,
+  },
+  {
     path: HOME_URI,
     component: scenes.Home,
     authenticated: true,

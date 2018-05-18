@@ -29,6 +29,14 @@ export default withApollo(({ category, clap, project, client, disabled, key }) =
                 variables: {
                   id: project.id,
                 },
+                optimisticResponse: {
+                  __typename: 'Mutation',
+                  [clap ? 'clap' : 'vote']: {
+                    id: project.id,
+                    __typename: 'Project',
+                    [result]: project[result] + 1,
+                  },
+                },
               }
             : {
                 mutation: gql`
@@ -62,14 +70,6 @@ export default withApollo(({ category, clap, project, client, disabled, key }) =
                   category,
                 },
               }),
-          optimisticResponse: {
-            __typename: 'Mutation',
-            [clap ? 'clap' : 'vote']: {
-              id: project.id,
-              __typename: 'Project',
-              [result]: project[result] + 1,
-            },
-          },
         })
       }
     >
