@@ -11,6 +11,8 @@ export default class Login extends React.Component {
         <button onClick={login} className="center">
           Log in!
         </button>
+        {window.error && <p className="error">{window.error}</p>}
+        }
       </Center>
     )
   }

@@ -11,7 +11,7 @@ const REDIRECT =
     ? 'http://localhost:8080/oauth2callback'
     : 'https://portal.event0.org/oauth2callback'
 console.log(REDIRECT)
-const DOMAINS = ['cps.edu']
+const DOMAINS = ['cps.edu', 'chicode.net']
 const OTHER_EMAILS = ['antonoutkine@gmail.com']
 
 export function login() {
