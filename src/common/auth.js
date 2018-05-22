@@ -1,18 +1,15 @@
 import { get, cors } from 'common/request'
-import { client, history } from 'App'
 import gql from 'graphql-tag'
 
 import { HOME_URI, LOGIN_URI, SIGNUP_URI } from 'Routes'
+import { DEV_FRONT, PROD_FRONT } from 'App'
 
-const CLIENT_ID = '810541216828-u6mqqjil5i6l3eii11gelm4u4dmn46g2.apps.googleusercontent.com'
-console.log(process.env.NODE_ENV)
+const CLIENT_ID = '[[GOOGLE CLIENT ID]]'
+
 const REDIRECT =
   process.env.NODE_ENV === 'development'
-    ? 'http://localhost:8080/oauth2callback'
-    : 'https://portal.event0.org/oauth2callback'
-console.log(REDIRECT)
-const DOMAINS = ['cps.edu', 'chicode.net']
-const OTHER_EMAILS = ['antonoutkine@gmail.com']
+    ? DEV_FRONT + '/oauth2callback'
+    : PROD_FRONT + '/oauth2callback'
 
 export function login() {
   cors('GET', 'https://accounts.google.com/o/oauth2/v2/auth', {
@@ -28,12 +25,6 @@ export async function validate(token) {
     access_token: token,
   })
   if (auth.aud !== CLIENT_ID) {
-    history.replace(LOGIN_URI)
-    return
-  }
-
-  if (!DOMAINS.includes(auth.email.split('@')[1]) && !OTHER_EMAILS.includes(auth.email)) {
-    window.error = 'Make sure to use your cps email.'
     history.replace(LOGIN_URI)
     return
   }

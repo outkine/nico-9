@@ -4,7 +4,7 @@ import gql from 'graphql-tag'
 import { Mutation } from 'components'
 import { HOME_URI } from 'Routes'
 
-export default class Create extends React.Component {
+export default class Signup extends React.Component {
   render() {
     return (
       <Mutation

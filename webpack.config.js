@@ -1,5 +1,6 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
 module.exports = {
   mode: process.env.NODE_ENV,
@@ -11,15 +12,15 @@ module.exports = {
     ? ['@babel/polyfill', 'react-hot-loader/patch', './src/index.js']
     : ['@babel/polyfill', './src/index.js'],
   output: {
-    path: path.resolve('dist'),
+    path: path.resolve('dist/assets'),
     filename: 'bundle.js',
     publicPath: '/assets/',
   },
-  plugins: [new MiniCssExtractPlugin()],
+  plugins: [new MiniCssExtractPlugin(), new MonacoWebpackPlugin()],
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
         use: 'babel-loader',
         exclude: /node_modules/,
       },
@@ -51,18 +52,14 @@ module.exports = {
           'sass-loader',
         ],
       },
-      // {
-      //   test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
-      //   use: [
-      //     {
-      //       loader: 'url-loader',
-      //       options: {
-      //         limit: 1000,
-      //         name: 'assets/[hash].[ext]',
-      //       },
-      //     },
-      //   ],
-      // },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.raw.js$/,
+        use: 'raw-loader',
+      },
     ],
   },
   stats: 'minimal',

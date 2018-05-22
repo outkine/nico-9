@@ -27,55 +27,9 @@ p {
   display: flex;
 }
 
-.outer {
-  height: 100%;
-}
-
 .error {
   @include standard-border;
   border-color: map_get($color, error);
   font-size: nth($font-size, 2);
   display: inline-block;
-}
-
-button,
-input {
-  @include standard-border;
-  font-size: nth($font-size, 2);
-}
-
-button {
-  background: map_get($color, primary);
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-button:disabled {
-  background: map_get($color, foreground);
-  color: map_get($color, border);
-}
-
-input {
-  height: 100%;
-  width: 400px;
-}
-
-.highlight {
-  border-radius: $border-radius;
-  &.color1 {
-    background: map_get($color, secondary1);
-  }
-  &.color2 {
-    background: map_get($color, secondary2);
-  }
-}
-
-.seperator {
-  height: $border-width;
-  background: map_get($color, border);
-  margin: 20px;
-}
-
-.no-select {
-  user-select: none;
 }

@@ -1,9 +1,0 @@
-@import '~styles/definitions.global.scss';
-
-.main {
-  width: 400px;
-  margin-top: 10vh;
-  @include breakpoint(1) {
-    width: 50vw;
-  }
-}

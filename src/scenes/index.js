@@ -1,6 +1,3 @@
 export { default as Home } from './Home'
 export { default as Login } from './Login'
-export { default as Create } from './Create'
-export { default as Voting } from './Voting'
-export { default as NewProject } from './NewProject'
-export { default as EditProject } from './EditProject'
+export { default as Signup } from './Signup'

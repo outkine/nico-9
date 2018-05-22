@@ -5,7 +5,6 @@ async function request(path, options) {
   if (response.status === 404 || response.status === 200) {
     return response.json()
   } else {
-    console.log(response)
     return {}
   }
 }
