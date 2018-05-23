@@ -1,3 +1,3 @@
-export { default as Code } from './Code'
-export { default as Sprite } from './Sprite'
-export { default as Game } from './Game'
+export { default as code } from './Code'
+export { default as sprite } from './Sprite'
+export { default as game } from './Game'

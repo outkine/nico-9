@@ -1,44 +1,66 @@
 import React from 'react'
 import MonacoEditor from 'react-monaco-editor'
-import coffee from 'coffeescript'
-import mars from './mars.raw'
+import { connect } from 'react-redux'
+import * as monaco from 'monaco-editor'
 
-function prepareCode(code) {
-  return `
-  ${code}
-  ${mars}
-  `
-}
-
+@connect(
+  ({ code, error, location }) => ({ code, error }),
+  (dispatch) => ({
+    changeCode: ({ changes: [e] }) =>
+      dispatch({
+        type: 'CHANGE_CODE',
+        payload: { start: e.rangeOffset, deleteLength: e.rangeLength, text: e.text },
+      }),
+    run: () => dispatch({ type: 'RUN' }),
+  }),
+)
 export default class Code extends React.Component {
-  state = { code: '' }
-  editorDidMount = (editor, monaco) => {
-    editor.focus()
-    this.monaco = monaco
+  decorations = []
+  state = {
+    error: null,
+    displayError: false,
   }
-  onChange = (newValue) => {
-    this.setState({ code: newValue })
+  onChange = (newCode, event) => {
+    if (this.props.error) {
+      console.log(this.decorations)
+      this.decorations = this.editor.deltaDecorations(this.decorations, [])
+      console.log(this.decorations)
+    }
+    this.props.changeCode(event)
+  }
+  componentDidUpdate() {
+    if (this.props.error) {
+      const { error } = this.props
+      this.decorations = this.editor.deltaDecorations(this.decorations, [
+        {
+          range: new monaco.Range(
+            error.location.first_line + 1,
+            error.location.first_column + 1,
+            error.location.last_line + 1,
+            error.location.last_column + 2,
+          ),
+          options: { inlineClassName: 'error' },
+        },
+      ])
+    }
   }
   render() {
     return (
       <div style={{ height: '100%' }}>
-        <button onClick={this.run}>click</button>
         <MonacoEditor
           width="100%"
           height="100%"
           language="coffeescript"
-          value={this.state.code}
+          value={this.props.code}
           options={{
             selectOnLineNumbers: true,
             fontSize: 50,
           }}
           onChange={this.onChange}
-          editorDidMount={this.editorDidMount}
+          editorDidMount={(editor) => (this.editor = editor)}
         />
+        {this.props.error && <p>{this.props.error.message}</p>}
       </div>
     )
-  }
-  run = () => {
-    this.props.run(prepareCode(coffee.compile(this.state.code, { bare: true })))
   }
 }
