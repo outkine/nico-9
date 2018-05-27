@@ -20,8 +20,8 @@ export default class Home extends React.Component {
     const Component = views[this.props.view]
     return (
       <div style={{ height: '100%' }}>
-        <button onClick={this.props.run}>run code</button>
         <div className="row">
+          <button onClick={this.props.run}>run code</button>
           {['game', 'code', 'sprite'].map((view) => (
             <img
               key={view}

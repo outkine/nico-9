@@ -26,11 +26,10 @@ export default class Code extends React.Component {
     }
     this.props.changeCode(event)
   }
-  // eslint-disable-next-line
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.error !== this.error) {
-      this.error = nextProps.error
-      const { error } = nextProps
+  componentDidUpdate() {
+    if (this.props.error && this.props.error !== this.error) {
+      const { error } = this.props
+      this.error = error
       this.decorations = this.editor.deltaDecorations(this.decorations, [
         {
           range: new monaco.Range(
@@ -62,5 +61,8 @@ export default class Code extends React.Component {
         {this.props.error && <p>{this.props.error.message}</p>}
       </div>
     )
+  }
+  componentDidMount() {
+    window.addEventListener('resize', () => this.editor.layout())
   }
 }
