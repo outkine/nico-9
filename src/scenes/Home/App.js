@@ -23,11 +23,9 @@ export default class Home extends React.Component {
         <div className="row">
           <button onClick={this.props.run}>run code</button>
           {['game', 'code', 'sprite'].map((view) => (
-            <img
-              key={view}
-              src={`assets/${view}.svg`}
-              onClick={() => this.props.changeView(view)}
-            />
+            <button onClick={() => this.props.changeView(view)} key={view}>
+              <img src={`assets/${view}.svg`} />
+            </button>
           ))}
         </div>
         <Component />

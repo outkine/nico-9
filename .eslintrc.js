@@ -35,6 +35,7 @@ module.exports = {
       { anonymous: 'always', named: 'never', asyncArrow: 'always' },
     ],
   },
+  globals: { c: false },
   plugins: ['standard', 'import', 'promise', 'react'],
   settings: {
     'import/resolver': {

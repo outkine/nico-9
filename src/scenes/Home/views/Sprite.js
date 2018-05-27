@@ -1,6 +1,10 @@
 import React from 'react'
 
+const PIXEL_SIZE = 10
+
 export default class Sprite extends React.Component {
+  mouseDown = false
+
   render() {
     return (
       <div>
@@ -10,18 +14,28 @@ export default class Sprite extends React.Component {
   }
 
   init = (el) => {
-    this.el = el
-    const left = el.offsetLeft
-    const top = el.offsetTop
-    const ctx = el.getContext('2d')
-    el.addEventListener('click', (even) => {
-      let x = event.pageX - left
-      let y = event.pageY - top
-      ctx.fillRect(x, y, 1, 1)
-    })
+    if (el) {
+      this.el = el
+      const left = el.offsetLeft
+      const top = el.offsetTop
+      const ctx = el.getContext('2d')
+      ctx.fillStyle = 'black'
+      el.addEventListener('mousemove', (event) => {
+        if (this.mouseDown) {
+          let x = Math.floor((event.pageX - left) / PIXEL_SIZE) * PIXEL_SIZE
+          let y = Math.floor((event.pageY - top) / PIXEL_SIZE) * PIXEL_SIZE
+          ctx.fillRect(x, y, PIXEL_SIZE, PIXEL_SIZE)
+        }
+      })
+    }
   }
 
   componentWillUnmount() {
     this.el.removeEventListeners()
+  }
+
+  componentDidMount() {
+    window.addEventListener('mousedown', () => (this.mouseDown = true))
+    window.addEventListener('mouseup', () => (this.mouseDown = false))
   }
 }
