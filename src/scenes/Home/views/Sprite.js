@@ -30,10 +30,6 @@ export default class Sprite extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    this.el.removeEventListeners()
-  }
-
   componentDidMount() {
     window.addEventListener('mousedown', () => (this.mouseDown = true))
     window.addEventListener('mouseup', () => (this.mouseDown = false))
