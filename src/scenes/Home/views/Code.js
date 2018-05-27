@@ -22,15 +22,15 @@ export default class Code extends React.Component {
   }
   onChange = (newCode, event) => {
     if (this.props.error) {
-      console.log(this.decorations)
       this.decorations = this.editor.deltaDecorations(this.decorations, [])
-      console.log(this.decorations)
     }
     this.props.changeCode(event)
   }
-  componentDidUpdate() {
-    if (this.props.error) {
-      const { error } = this.props
+  // eslint-disable-next-line
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (nextProps.error !== this.error) {
+      this.error = nextProps.error
+      const { error } = nextProps
       this.decorations = this.editor.deltaDecorations(this.decorations, [
         {
           range: new monaco.Range(
