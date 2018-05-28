@@ -1,2 +1,3 @@
-# event0-portal
-The official event0 portal for doing various things at the event
+# nico-9
+
+A simple online game engine
