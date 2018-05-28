@@ -1,10 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { CANVAS_SIZE, GRID_SIZE, GRID_NUMBER } from '../../store'
+import {
+  handleSpritesheetAction,
+  getCtx,
+  SCALE,
+  CANVAS_SIZE,
+  GRID_SIZE,
+  GRID_NUMBER,
+} from '../../store'
 import './index.scss'
-
-const SCALE = 10
 
 @connect(
   ({ spritesheet }) => ({ spritesheet }),
@@ -103,10 +108,7 @@ export default class Sprite extends React.Component {
   }
 
   updateCanvas = () => {
-    let canvas = document.createElement('canvas')
-    let imageData = this.mainCtx.createImageData(CANVAS_SIZE, CANVAS_SIZE)
-    imageData.data.set(this.props.spritesheet)
-    canvas.getContext('2d').putImageData(imageData, 0, 0)
+    let { canvas } = getCtx(this.props.spritesheet)
     this.mainCtx.clearRect(0, 0, CANVAS_SIZE * SCALE, CANVAS_SIZE * SCALE)
     this.mainCtx.drawImage(canvas, 0, 0)
   }
@@ -118,22 +120,6 @@ export default class Sprite extends React.Component {
     let action = { tool: this.tool, x, y }
 
     this.props.changeSpritesheet(action)
-    this.handleAction(action)
-  }
-
-  handleAction = (action) => {
-    switch (action.tool) {
-      case 'pencil': {
-        this.mainCtx.fillStyle = 'rgb(0, 0, 0)'
-        this.mainCtx.fillRect(action.x, action.y, 1, 1)
-        break
-      }
-
-      case 'eraser': {
-        this.mainCtx.clearRect(action.x, action.y, 1, 1)
-        break
-      }
-    }
-    this.props.updateImageData(this.mainCtx.getImageData(0, 0, CANVAS_SIZE, CANVAS_SIZE).data)
+    handleSpritesheetAction(action, this.mainCtx)
   }
 }
