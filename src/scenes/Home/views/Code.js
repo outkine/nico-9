@@ -11,7 +11,6 @@ import * as monaco from 'monaco-editor'
         type: 'CHANGE_CODE',
         payload: { start: e.rangeOffset, deleteLength: e.rangeLength, text: e.text },
       }),
-    run: () => dispatch({ type: 'RUN' }),
   }),
 )
 export default class Code extends React.Component {

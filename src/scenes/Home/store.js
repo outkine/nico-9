@@ -10,8 +10,24 @@ function prepareCode(code) {
   `
 }
 
+export const CANVAS_SIZE = 100
+
+function getImageDataIndices(x, y) {
+  const red = (y * CANVAS_SIZE + x) * 4
+  return [red, red + 1, red + 2, red + 3]
+}
+
 export default createStore(
-  (state = { code: '', error: '', view: 'code', compiledCode: '' }, action) => {
+  (
+    state = {
+      code: '',
+      error: '',
+      view: 'sprite',
+      compiledCode: '',
+      spritesheet: new Array(CANVAS_SIZE ** 2 * 4).fill(20),
+    },
+    action,
+  ) => {
     switch (action.type) {
       case 'CHANGE_CODE': {
         const { payload } = action
@@ -23,12 +39,26 @@ export default createStore(
             state.code.slice(payload.start + payload.deleteLength),
         }
       }
+      case 'CHANGE_SPRITESHEET': {
+        const { payload } = action
+
+        let spritesheet = state.spritesheet.slice()
+        const [r, g, b, a] = getImageDataIndices(payload.x, payload.y)
+        spritesheet[r] = payload.r
+        spritesheet[g] = payload.g
+        spritesheet[b] = payload.b
+        spritesheet[a] = 255
+
+        return {
+          ...state,
+          spritesheet,
+        }
+      }
       case 'RUN': {
         try {
           const code = coffee.compile(state.code, { bare: true })
           return { ...state, view: 'game', compiledCode: prepareCode(code) }
         } catch (error) {
-          console.dir(error)
           return { ...state, view: 'code', error: { ...error } }
         }
       }
