@@ -14,10 +14,10 @@ export const GRID_SIZE = 8
 export const GRID_NUMBER = 10
 export const CANVAS_SIZE = GRID_SIZE * GRID_NUMBER
 
-function getImageDataIndices(x, y) {
-  const red = (y * CANVAS_SIZE + x) * 4
-  return [red, red + 1, red + 2, red + 3]
-}
+// function getImageDataIndices(x, y) {
+//   const red = (y * CANVAS_SIZE + x) * 4
+//   return [red, red + 1, red + 2, red + 3]
+// }
 
 export default createStore(
   (
@@ -54,6 +54,12 @@ export default createStore(
         return {
           ...state,
           // spritesheet,
+        }
+      }
+      case 'UPDATE_IMAGEDATA': {
+        return {
+          ...state,
+          spritesheet: action.payload,
         }
       }
       case 'RUN': {

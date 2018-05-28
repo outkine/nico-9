@@ -1,5 +1,7 @@
-/* global load, update, draw, ctx, sprites */
+/* global load, update, draw, ctx, spriteCtx, CANVAS_SIZE, GRID_SIZE, GRID_NUMBER */
 /* eslint no-unused-vars: 0 */
+
+c(typeof GRID_NUMBER)
 
 if (typeof draw !== 'function') throw new Error('You must define a "draw" function.')
 
@@ -14,7 +16,17 @@ function rect(x, y, width, height, outline = false, color = null) {
   }
 }
 
+const sprites = []
+
 function sprite(i, x, y) {
+  if (!sprites[i]) {
+    sprites[i] = spriteCtx.getImageData(
+      i % GRID_NUMBER,
+      Math.floor(i / GRID_NUMBER),
+      GRID_SIZE,
+      GRID_SIZE,
+    )
+  }
   ctx.putImageData(sprites[i], x, y)
 }
 

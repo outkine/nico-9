@@ -1,7 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
+// eslint-disable-next-line
+import { CANVAS_SIZE, GRID_SIZE, GRID_NUMBER } from '../../store'
 
-@connect(({ compiledCode }) => ({ compiledCode }))
+@connect(({ compiledCode, spritesheet }) => ({ compiledCode, spritesheet }))
 export default class Game extends React.Component {
   state = {
     error: '',
@@ -17,9 +19,13 @@ export default class Game extends React.Component {
 
   init = (el) => {
     if (el) {
-      console.log(this.props.code)
       // eslint-disable-next-line
       const ctx = el.getContext('2d')
+      // eslint-disable-next-line
+      const spriteCtx = document.createElement('canvas').getContext('2d')
+      let imageData = spriteCtx.createImageData(CANVAS_SIZE, CANVAS_SIZE)
+      imageData.data.set(this.props.spritesheet)
+      spriteCtx.putImageData(imageData, 0, 0)
       try {
         // eslint-disable-next-line
         eval(this.props.compiledCode)

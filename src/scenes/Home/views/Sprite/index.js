@@ -14,6 +14,11 @@ const SCALE = 10
         type: 'CHANGE_SPRITESHEET',
         payload,
       }),
+    updateImageData: (payload) =>
+      dispatch({
+        type: 'UPDATE_IMAGEDATA',
+        payload,
+      }),
   }),
 )
 export default class Sprite extends React.Component {
@@ -45,11 +50,13 @@ export default class Sprite extends React.Component {
     }
   }
   initMain = (el) => {
-    this.init(el)
-    this.main = el
-    this.mainCtx = el.getContext('2d')
-    this.mainCtx.imageSmoothingEnabled = false
-    this.mainCtx.scale(SCALE, SCALE)
+    if (el) {
+      this.init(el)
+      this.main = el
+      this.mainCtx = el.getContext('2d')
+      this.mainCtx.imageSmoothingEnabled = false
+      this.mainCtx.scale(SCALE, SCALE)
+    }
   }
   initGrid = (el) => {
     if (el) {
@@ -69,6 +76,11 @@ export default class Sprite extends React.Component {
         end = [CANVAS_SIZE * SCALE, y * GRID_SIZE * SCALE]
         ctx.moveTo(begin[0], begin[1])
         ctx.lineTo(end[0], end[1])
+      }
+      for (let x = 0; x <= GRID_NUMBER; x++) {
+        for (let y = 0; y <= GRID_NUMBER; y++) {
+          ctx.fillText(x + GRID_NUMBER * y, x * GRID_SIZE * SCALE, y * GRID_SIZE * SCALE + 10)
+        }
       }
       ctx.stroke()
     }
@@ -122,5 +134,6 @@ export default class Sprite extends React.Component {
         break
       }
     }
+    this.props.updateImageData(this.mainCtx.getImageData(0, 0, CANVAS_SIZE, CANVAS_SIZE).data)
   }
 }
