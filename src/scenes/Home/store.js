@@ -26,7 +26,7 @@ export default createStore(
       error: '',
       view: 'sprite',
       compiledCode: '',
-      spritesheet: new Array(CANVAS_SIZE ** 2 * 4).fill(20),
+      spritesheet: new Array(CANVAS_SIZE ** 2 * 4),
     },
     action,
   ) => {
@@ -42,18 +42,18 @@ export default createStore(
         }
       }
       case 'CHANGE_SPRITESHEET': {
-        const { payload } = action
+        // const { payload } = action
 
-        let spritesheet = state.spritesheet.slice()
-        const [r, g, b, a] = getImageDataIndices(payload.x, payload.y)
-        spritesheet[r] = payload.r
-        spritesheet[g] = payload.g
-        spritesheet[b] = payload.b
-        spritesheet[a] = 255
+        // let spritesheet = state.spritesheet.slice()
+        // const [r, g, b, a] = getImageDataIndices(payload.x, payload.y)
+        // spritesheet[r] = payload.r
+        // spritesheet[g] = payload.g
+        // spritesheet[b] = payload.b
+        // spritesheet[a] = 255
 
         return {
           ...state,
-          spritesheet,
+          // spritesheet,
         }
       }
       case 'RUN': {

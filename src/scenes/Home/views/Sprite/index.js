@@ -18,6 +18,7 @@ const SCALE = 10
 )
 export default class Sprite extends React.Component {
   mouseDown = false
+  tool = 'pencil'
 
   render() {
     return (
@@ -25,6 +26,13 @@ export default class Sprite extends React.Component {
         <canvas ref={this.initMain} />
         <canvas ref={this.initGrid} />
         <canvas ref={this.initOverlay} />
+        <div className="row">
+          {['pencil', 'eraser'].map((tool) => (
+            <button key={tool} onClick={() => (this.tool = tool)}>
+              <img src={`assets/${tool}.svg`} />
+            </button>
+          ))}
+        </div>
       </div>
     )
   }
@@ -53,7 +61,6 @@ export default class Sprite extends React.Component {
       for (let x = 0; x <= GRID_NUMBER; x++) {
         begin = [x * GRID_SIZE * SCALE, 0]
         end = [x * GRID_SIZE * SCALE, CANVAS_SIZE * SCALE]
-        // console.log('begin', begin, 'end', end)
         ctx.moveTo(begin[0], begin[1])
         ctx.lineTo(end[0], end[1])
       }
@@ -69,7 +76,6 @@ export default class Sprite extends React.Component {
   initOverlay = (el) => {
     if (el) {
       this.init(el)
-      let ctx = el.getContext('2d')
       el.addEventListener('mousemove', (event) => this.mouseDown && this.onChange(event))
     }
   }
@@ -94,10 +100,27 @@ export default class Sprite extends React.Component {
   }
 
   onChange = (event) => {
-    this.mainCtx.fillStyle = 'rgb(0, 0, 0)'
     let x = Math.floor((event.pageX - this.main.offsetLeft) / SCALE)
     let y = Math.floor((event.pageY - this.main.offsetTop) / SCALE)
-    this.props.changeSpritesheet({ x, y, r: 0, g: 0, b: 0 })
-    this.mainCtx.fillRect(x, y, 1, 1)
+
+    let action = { tool: this.tool, x, y }
+
+    this.props.changeSpritesheet(action)
+    this.handleAction(action)
+  }
+
+  handleAction = (action) => {
+    switch (action.tool) {
+      case 'pencil': {
+        this.mainCtx.fillStyle = 'rgb(0, 0, 0)'
+        this.mainCtx.fillRect(action.x, action.y, 1, 1)
+        break
+      }
+
+      case 'eraser': {
+        this.mainCtx.clearRect(action.x, action.y, 1, 1)
+        break
+      }
+    }
   }
 }

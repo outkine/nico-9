@@ -2,4 +2,7 @@
   canvas {
     position: absolute;
   }
+  canvas:last-of-type {
+    position: relative;
+  }
 }
