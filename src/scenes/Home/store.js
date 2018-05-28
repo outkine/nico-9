@@ -10,7 +10,9 @@ function prepareCode(code) {
   `
 }
 
-export const CANVAS_SIZE = 100
+export const GRID_SIZE = 8
+export const GRID_NUMBER = 10
+export const CANVAS_SIZE = GRID_SIZE * GRID_NUMBER
 
 function getImageDataIndices(x, y) {
   const red = (y * CANVAS_SIZE + x) * 4
