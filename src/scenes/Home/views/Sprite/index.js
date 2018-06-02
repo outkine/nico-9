@@ -9,6 +9,7 @@ import {
   GRID_SIZE,
   GRID_NUMBER,
 } from '../../store'
+import { Slider } from 'components'
 import './index.scss'
 
 @connect(
@@ -33,16 +34,25 @@ export default class Sprite extends React.Component {
   render() {
     return (
       <div styleName="main">
-        <canvas ref={this.initMain} />
-        <canvas ref={this.initGrid} />
-        <canvas ref={this.initOverlay} />
-        <div className="row">
-          {['pencil', 'eraser'].map((tool) => (
-            <button key={tool} onClick={() => (this.tool = tool)}>
-              <img src={`assets/${tool}.svg`} />
-            </button>
-          ))}
-        </div>
+        <Slider direction="horizontal">
+          {[
+            <div key="main">
+              <canvas ref={this.initMain} />
+              <canvas ref={this.initGrid} />
+              <canvas ref={this.initOverlay} />
+              <div className="row" style={{ userSelect: 'none' }}>
+                {['pencil', 'eraser'].map((tool) => (
+                  <button key={tool} onClick={() => (this.tool = tool)}>
+                    <img src={`assets/${tool}.svg`} />
+                  </button>
+                ))}
+              </div>
+            </div>,
+            <div key="toolbar" style={{ userSelect: 'none' }}>
+              panel
+            </div>,
+          ]}
+        </Slider>
       </div>
     )
   }
@@ -93,7 +103,9 @@ export default class Sprite extends React.Component {
   initOverlay = (el) => {
     if (el) {
       this.init(el)
-      el.addEventListener('mousemove', (event) => this.mouseDown && this.onChange(event))
+      el.addEventListener('mousemove', (event) => {
+        if (this.mouseDown && !window.dragging) this.onChange(event)
+      })
     }
   }
 
