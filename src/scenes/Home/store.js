@@ -46,7 +46,7 @@ export function getCtx(data) {
 export function handleSpritesheetAction(action, ctx) {
   switch (action.tool) {
     case 'pencil': {
-      ctx.fillStyle = 'rgb(0, 0, 0)'
+      ctx.fillStyle = action.color
       ctx.fillRect(action.x, action.y, 1, 1)
       break
     }

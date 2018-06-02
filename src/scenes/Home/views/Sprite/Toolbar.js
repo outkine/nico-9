@@ -3,19 +3,19 @@ import React from 'react'
 import ColorPicker from './ColorPicker'
 import Slider from './Slider'
 
-export default ({ tool }) => {
+export default ({ tool, update }) => {
   switch (tool) {
     case 'pencil':
       return (
         <div>
-          <ColorPicker />
-          <Slider />
+          <ColorPicker update={(color) => update({ color })} />
+          <Slider update={(width) => update({ width })} />
         </div>
       )
     case 'eraser':
       return (
         <div>
-          <Slider />
+          <Slider update={(width) => update({ width })} />
         </div>
       )
   }

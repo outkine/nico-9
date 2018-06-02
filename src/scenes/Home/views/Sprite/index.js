@@ -56,7 +56,12 @@ export default class Sprite extends React.Component {
                   </button>
                 ))}
               </div>
-              <Toolbar tool={this.state.tool} />
+              <Toolbar
+                tool={this.state.tool}
+                update={(options) =>
+                  this.setState({ toolOptions: { ...this.state.toolOptions, ...options } })
+                }
+              />
             </div>,
           ]}
         </Slider>
@@ -138,7 +143,7 @@ export default class Sprite extends React.Component {
     let x = Math.floor((event.pageX - this.main.offsetLeft) / SCALE)
     let y = Math.floor((event.pageY - this.main.offsetTop) / SCALE)
 
-    let action = { tool: this.state.tool, x, y }
+    let action = { tool: this.state.tool, x, y, color: this.state.toolOptions.color }
 
     this.props.changeSpritesheet(action)
     handleSpritesheetAction(action, this.mainCtx)

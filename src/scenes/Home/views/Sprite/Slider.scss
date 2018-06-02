@@ -6,10 +6,11 @@
 }
 
 .edge {
-  height: 10px;
+  height: 20px;
   width: 4px;
   position: absolute;
   background: black;
+  transform: translateY(-7px);
 
   &.left {
     left: 0;
@@ -23,7 +24,6 @@
   position: relative;
   width: 40px;
   height: 40px;
-  background: red;
 }
 
 .main {

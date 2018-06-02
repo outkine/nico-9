@@ -26,6 +26,7 @@ export default class Slider extends Component {
           styleName="divider"
           onMouseDown={(event) => {
             window.dragging = true
+            this.dragging = true
           }}
         />
         <div style={{ flex: 1 }}>{this.props.children[1]}</div>
@@ -42,11 +43,12 @@ export default class Slider extends Component {
 
   componentDidMount() {
     window.addEventListener('mousemove', () => {
-      if (window.dragging) {
+      if (this.dragging) {
         this.setState({ distance: event.clientX })
       }
     })
     window.addEventListener('mouseup', () => {
+      this.dragging = false
       window.dragging = false
     })
   }

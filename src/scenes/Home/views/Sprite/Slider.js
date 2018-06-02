@@ -14,26 +14,26 @@ export default class Slider extends React.Component {
         styleName="main"
         ref={(el) => {
           if (el) {
-            // debugger
             this.width = el.offsetWidth
           }
         }}
       >
-        <div styleName="bar" />
-        <div styleName="edge left" />
-        <div styleName="edge right" />
-        <div
+        <img
+          src="assets/marker.svg"
           styleName="lever"
           onMouseDown={(event) => {
             this.dragging = true
+            window.dragging = true
             this.dragStart = event.pageX
           }}
           style={{
-            // transform: `translateX(${this.state.distance})`,
             position: 'relative',
             left: this.state.distance,
           }}
         />
+        <div styleName="bar" />
+        <div styleName="edge left" />
+        <div styleName="edge right" />
       </div>
     )
   }
@@ -46,10 +46,12 @@ export default class Slider extends React.Component {
         else if (newDistance > this.width - 40) newDistance = this.width - 40
         this.setState({ distance: newDistance })
         this.dragStart = event.pageX
+        this.props.update((this.width - 40) / newDistance)
       }
     })
     window.addEventListener('mouseup', () => {
       this.dragging = false
+      window.dragging = false
     })
   }
 }
