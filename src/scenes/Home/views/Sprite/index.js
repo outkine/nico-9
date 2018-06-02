@@ -10,6 +10,7 @@ import {
   GRID_NUMBER,
 } from '../../store'
 import { Slider } from 'components'
+import Toolbar from './Toolbar'
 import './index.scss'
 
 @connect(
@@ -31,6 +32,10 @@ export default class Sprite extends React.Component {
   mouseDown = false
   state = {
     tool: 'pencil',
+    toolOptions: {
+      width: 1,
+      color: 'white',
+    },
   }
 
   render() {
@@ -44,11 +49,14 @@ export default class Sprite extends React.Component {
               <canvas ref={this.initOverlay} />
             </div>,
             <div key="toolbar" styleName="toolbar">
-              {['pencil', 'eraser'].map((tool) => (
-                <button key={tool} onClick={() => this.setState({ tool })}>
-                  <img src={`assets/${tool + (tool === this.state.tool ? '-active' : '')}.svg`} />
-                </button>
-              ))}
+              <div styleName="tools">
+                {['pencil', 'eraser'].map((tool) => (
+                  <button key={tool} onClick={() => this.setState({ tool })}>
+                    <img src={`assets/${tool + (tool === this.state.tool ? '-active' : '')}.svg`} />
+                  </button>
+                ))}
+              </div>
+              <Toolbar tool={this.state.tool} />
             </div>,
           ]}
         </Slider>

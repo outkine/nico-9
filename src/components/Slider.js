@@ -35,7 +35,6 @@ export default class Slider extends Component {
 
   initializeDistance = (ref) => {
     if (!ref) return
-    c(ref.getClientRects())
     this.setState({
       distance: ref.getClientRects()[0][this.props.direction === 'horizontal' ? 'width' : 'height'],
     })

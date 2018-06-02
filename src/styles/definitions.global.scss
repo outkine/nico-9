@@ -1,30 +1,30 @@
 $palette: (
-  #1a1c2c,
-  #572956,
-  #b14156,
-  #ee7b58,
-  #ffd079,
-  #a0f072,
-  #38b86e,
-  #276e7b,
-  #29366f,
-  #405bd0,
-  #4fa4f7,
-  #86ecf8,
-  #f4f4f4,
-  #93b6c1,
-  #557185,
-  #324056
+  night: #000000,
+  crown: #572956,
+  rose: #b14156,
+  sunset: #ee7b58,
+  lemon: #ffd079,
+  grass: #a0f072,
+  bush: #38b86e,
+  swamp: #276e7b,
+  ocean: #29366f,
+  berry: #405bd0,
+  pool: #4fa4f7,
+  sky: #86ecf8,
+  cloud: #f4f4f4,
+  cement: #93b6c1,
+  metal: #557185,
+  coal: #324056
 );
 
 $color: (
-  background: nth($palette, 1),
-  foreground: nth($palette, 14),
-  primary: nth($palette, 3),
-  secondary: nth($palette, 5),
-  font: nth($palette, 1),
-  border: nth($palette, 1),
-  divider: nth($palette, 13)
+  background: map_get($palette, night),
+  foreground: map_get($palette, cement),
+  primary: map_get($palette, rose),
+  secondary: map_get($palette, lemon),
+  font: map_get($palette, night),
+  border: map_get($palette, night),
+  divider: map_get($palette, cloud)
 );
 
 $font-size: 100px, 50px, 30px;
