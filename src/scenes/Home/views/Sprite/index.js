@@ -29,7 +29,9 @@ import './index.scss'
 )
 export default class Sprite extends React.Component {
   mouseDown = false
-  tool = 'pencil'
+  state = {
+    tool: 'pencil',
+  }
 
   render() {
     return (
@@ -40,16 +42,13 @@ export default class Sprite extends React.Component {
               <canvas ref={this.initMain} />
               <canvas ref={this.initGrid} />
               <canvas ref={this.initOverlay} />
-              <div className="row" style={{ userSelect: 'none' }}>
-                {['pencil', 'eraser'].map((tool) => (
-                  <button key={tool} onClick={() => (this.tool = tool)}>
-                    <img src={`assets/${tool}.svg`} />
-                  </button>
-                ))}
-              </div>
             </div>,
-            <div key="toolbar" style={{ userSelect: 'none' }}>
-              panel
+            <div key="toolbar" styleName="toolbar">
+              {['pencil', 'eraser'].map((tool) => (
+                <button key={tool} onClick={() => this.setState({ tool })}>
+                  <img src={`assets/${tool + (tool === this.state.tool ? '-active' : '')}.svg`} />
+                </button>
+              ))}
             </div>,
           ]}
         </Slider>
@@ -78,7 +77,8 @@ export default class Sprite extends React.Component {
       this.init(el)
       let ctx = el.getContext('2d')
       ctx.beginPath()
-      ctx.strokeStyle = 'black'
+      ctx.strokeStyle = '#557185'
+      ctx.lineWidth = 5
       let begin, end
       for (let x = 0; x <= GRID_NUMBER; x++) {
         begin = [x * GRID_SIZE * SCALE, 0]
@@ -121,7 +121,8 @@ export default class Sprite extends React.Component {
 
   updateCanvas = () => {
     let { canvas } = getCtx(this.props.spritesheet)
-    this.mainCtx.clearRect(0, 0, CANVAS_SIZE * SCALE, CANVAS_SIZE * SCALE)
+    this.mainCtx.fillStyle = 'black'
+    this.mainCtx.fillRect(0, 0, CANVAS_SIZE * SCALE, CANVAS_SIZE * SCALE)
     this.mainCtx.drawImage(canvas, 0, 0)
   }
 
@@ -129,7 +130,7 @@ export default class Sprite extends React.Component {
     let x = Math.floor((event.pageX - this.main.offsetLeft) / SCALE)
     let y = Math.floor((event.pageY - this.main.offsetTop) / SCALE)
 
-    let action = { tool: this.tool, x, y }
+    let action = { tool: this.state.tool, x, y }
 
     this.props.changeSpritesheet(action)
     handleSpritesheetAction(action, this.mainCtx)

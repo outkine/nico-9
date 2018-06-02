@@ -1,13 +1,30 @@
+$palette: (
+  #1a1c2c,
+  #572956,
+  #b14156,
+  #ee7b58,
+  #ffd079,
+  #a0f072,
+  #38b86e,
+  #276e7b,
+  #29366f,
+  #405bd0,
+  #4fa4f7,
+  #86ecf8,
+  #f4f4f4,
+  #93b6c1,
+  #557185,
+  #324056
+);
+
 $color: (
-  background: white,
-  foreground: #e5e5e5,
-  primary: #e85a5a,
-  secondary1: #b9a4db,
-  secondary2: #e9cf8b,
-  primaryfont: black,
-  secondaryfont: #7a7a7a,
-  error: #ff5050,
-  border: black
+  background: nth($palette, 1),
+  foreground: nth($palette, 14),
+  primary: nth($palette, 3),
+  secondary: nth($palette, 5),
+  font: nth($palette, 1),
+  border: nth($palette, 1),
+  divider: nth($palette, 13)
 );
 
 $font-size: 100px, 50px, 30px;

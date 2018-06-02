@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import './Slider.scss'
+import './Slider.scss'
 
 export default class Slider extends Component {
   state = {
@@ -23,12 +23,12 @@ export default class Slider extends Component {
           {this.props.children[0]}
         </div>
         <div
-          style={{ width: '10px', background: 'black' }}
+          styleName="divider"
           onMouseDown={(event) => {
             window.dragging = true
           }}
         />
-        {this.props.children[1]}
+        <div style={{ flex: 1 }}>{this.props.children[1]}</div>
       </div>
     )
   }

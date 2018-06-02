@@ -1,3 +1,5 @@
+@import '~styles/definitions.global.scss';
+
 .main {
   canvas {
     position: absolute;
@@ -5,4 +7,10 @@
   canvas:last-of-type {
     position: relative;
   }
+}
+
+.toolbar {
+  user-select: none;
+  background: map_get($color, foreground);
+  height: 100%;
 }

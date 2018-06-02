@@ -10,16 +10,12 @@
    width="24"
    height="24"
    viewBox="0 0 24 24"
-   fill="none"
-   stroke="currentColor"
-   stroke-width="2"
-   stroke-linecap="round"
-   stroke-linejoin="round"
    class="feather feather-code"
    version="1.1"
    id="svg6"
-   sodipodi:docname="code.svg"
-   inkscape:version="0.92.2 2405546, 2018-03-11">
+   sodipodi:docname="code-active.svg"
+   inkscape:version="0.92.2 2405546, 2018-03-11"
+   style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round">
   <metadata
      id="metadata12">
     <rdf:RDF>
@@ -47,17 +43,31 @@
      inkscape:window-height="1053"
      id="namedview8"
      showgrid="false"
-     inkscape:zoom="17.13151"
-     inkscape:cx="-0.81214283"
-     inkscape:cy="14.337156"
+     inkscape:zoom="18.384018"
+     inkscape:cx="-7.0763519"
+     inkscape:cy="15.053321"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg6" />
   <polyline
+     style="stroke:#ffd079;stroke-width:6.5999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.90776702"
+     id="polyline816"
      points="16 18 22 12 16 6"
-     id="polyline2" />
+     transform="matrix(0.90092323,0,0,0.90092323,1.1889212,1.1889212)" />
+  <polyline
+     style="stroke:#ffd079;stroke-width:6.5999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.90776702"
+     id="polyline818"
+     points="8 6 2 12 8 18"
+     transform="matrix(0.90092323,0,0,0.90092323,1.1889212,1.1889212)" />
+  <polyline
+     points="16 18 22 12 16 6"
+     id="polyline2"
+     style="stroke:#000000;stroke-opacity:0.87378666"
+     transform="matrix(0.90092323,0,0,0.90092323,1.1889212,1.1889212)" />
   <polyline
      points="8 6 2 12 8 18"
-     id="polyline4" />
+     id="polyline4"
+     style="stroke:#000000;stroke-opacity:0.87378666"
+     transform="matrix(0.90092323,0,0,0.90092323,1.1889212,1.1889212)" />
 </svg>

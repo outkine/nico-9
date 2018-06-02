@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import './App.scss'
 import * as views from './views'
 
 @connect(
@@ -20,11 +21,13 @@ export default class Home extends React.Component {
     const Component = views[this.props.view]
     return (
       <div style={{ height: '100%' }}>
-        <div className="row">
-          <button onClick={this.props.run}>run code</button>
+        <div className="row" styleName="bar">
+          <button className="regular" onClick={this.props.run}>
+            <p>run code</p>
+          </button>
           {['game', 'code', 'sprite'].map((view) => (
-            <button onClick={() => this.props.changeView(view)} key={view}>
-              <img src={`assets/${view}.svg`} />
+            <button className="img" onClick={() => this.props.changeView(view)} key={view}>
+              <img src={`assets/${view + (this.props.view === view ? '-active' : '')}.svg`} />
             </button>
           ))}
         </div>

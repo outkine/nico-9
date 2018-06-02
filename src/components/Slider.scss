@@ -1,2 +1,6 @@
-.panel {
+@import '~styles/definitions.global.scss';
+
+.divider {
+  width: 10px;
+  background: map_get($color, divider);
 }

@@ -15,13 +15,13 @@
    stroke-width="2"
    stroke-linecap="round"
    stroke-linejoin="round"
-   class="feather feather-code"
+   class="feather feather-image"
    version="1.1"
-   id="svg6"
-   sodipodi:docname="code.svg"
+   id="svg8"
+   sodipodi:docname="sprite-active.svg"
    inkscape:version="0.92.2 2405546, 2018-03-11">
   <metadata
-     id="metadata12">
+     id="metadata14">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -33,7 +33,7 @@
     </rdf:RDF>
   </metadata>
   <defs
-     id="defs10" />
+     id="defs12" />
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -45,19 +45,36 @@
      inkscape:pageshadow="2"
      inkscape:window-width="1920"
      inkscape:window-height="1053"
-     id="namedview8"
+     id="namedview10"
      showgrid="false"
      inkscape:zoom="17.13151"
-     inkscape:cx="-0.81214283"
-     inkscape:cy="14.337156"
+     inkscape:cx="-2.3624338"
+     inkscape:cy="8.811853"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg6" />
+     inkscape:current-layer="svg8" />
+  <rect
+     x="3"
+     y="3"
+     width="18"
+     height="18"
+     rx="2"
+     ry="2"
+     id="rect2" />
+  <circle
+     cx="8.5"
+     cy="8.5"
+     r="1.5"
+     id="circle4"
+     style="fill:#ffd079;fill-opacity:1" />
   <polyline
-     points="16 18 22 12 16 6"
-     id="polyline2" />
-  <polyline
-     points="8 6 2 12 8 18"
-     id="polyline4" />
+     points="21 15 16 10 5 21"
+     id="polyline6" />
+  <path
+     id="polyline824"
+     d="m 5,21 11,-11 5,5 v 4 c 0,1.108 -0.892,2 -2,2 H 5"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="ccccsc"
+     style="fill:#ffd079;fill-opacity:1" />
 </svg>

@@ -1,0 +1,5 @@
+@import '~styles/definitions.global.scss';
+
+.bar {
+  background: map_get($color, foreground);
+}
