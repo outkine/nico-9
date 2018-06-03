@@ -4,6 +4,9 @@
   canvas {
     position: absolute;
   }
+  canvas:first-of-type {
+    background: map_get($color, background);
+  }
   canvas:last-of-type {
     position: relative;
   }

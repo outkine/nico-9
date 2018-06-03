@@ -136,8 +136,7 @@ export default class Sprite extends React.Component {
 
   updateCanvas = () => {
     let { canvas } = getCtx(this.props.spritesheet)
-    this.mainCtx.fillStyle = 'black'
-    this.mainCtx.fillRect(0, 0, CANVAS_SIZE * SCALE, CANVAS_SIZE * SCALE)
+    this.mainCtx.clearRect(0, 0, CANVAS_SIZE * SCALE, CANVAS_SIZE * SCALE)
     this.mainCtx.drawImage(canvas, 0, 0)
   }
 

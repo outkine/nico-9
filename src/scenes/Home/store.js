@@ -57,7 +57,12 @@ export function handleSpritesheetAction(action, ctx) {
     }
 
     case 'eraser': {
-      ctx.clearRect(action.x, action.y, action.width, action.width)
+      ctx.clearRect(
+        action.x - Math.floor(action.width / 2),
+        action.y - Math.floor(action.width / 2),
+        action.width,
+        action.width,
+      )
       break
     }
   }
