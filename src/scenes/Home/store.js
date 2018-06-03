@@ -47,12 +47,12 @@ export function handleSpritesheetAction(action, ctx) {
   switch (action.tool) {
     case 'pencil': {
       ctx.fillStyle = action.color
-      ctx.fillRect(action.x, action.y, 1, 1)
+      ctx.fillRect(action.x, action.y, action.width, action.width)
       break
     }
 
     case 'eraser': {
-      ctx.clearRect(action.x, action.y, 1, 1)
+      ctx.clearRect(action.x, action.y, action.width, action.width)
       break
     }
   }

@@ -90,7 +90,9 @@ export default class Sprite extends React.Component {
       this.init(el)
       let ctx = el.getContext('2d')
       ctx.beginPath()
-      ctx.strokeStyle = '#557185'
+      ctx.strokeStyle = '#7396af'
+      ctx.fillStyle = '#7396af'
+      ctx.font = 'bold 10px Source Code Pro'
       ctx.lineWidth = 5
       let begin, end
       for (let x = 0; x <= GRID_NUMBER; x++) {
@@ -107,7 +109,7 @@ export default class Sprite extends React.Component {
       }
       for (let x = 0; x <= GRID_NUMBER; x++) {
         for (let y = 0; y <= GRID_NUMBER; y++) {
-          ctx.fillText(x + GRID_NUMBER * y, x * GRID_SIZE * SCALE, y * GRID_SIZE * SCALE + 10)
+          ctx.fillText(x + GRID_NUMBER * y, x * GRID_SIZE * SCALE + 4, y * GRID_SIZE * SCALE + 12)
         }
       }
       ctx.stroke()
@@ -143,7 +145,14 @@ export default class Sprite extends React.Component {
     let x = Math.floor((event.pageX - this.main.offsetLeft) / SCALE)
     let y = Math.floor((event.pageY - this.main.offsetTop) / SCALE)
 
-    let action = { tool: this.state.tool, x, y, color: this.state.toolOptions.color }
+    c(this.state.toolOptions.width)
+    let action = {
+      tool: this.state.tool,
+      x,
+      y,
+      color: this.state.toolOptions.color,
+      width: Math.floor(this.state.toolOptions.width * 10),
+    }
 
     this.props.changeSpritesheet(action)
     handleSpritesheetAction(action, this.mainCtx)

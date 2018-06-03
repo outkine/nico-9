@@ -46,7 +46,7 @@ export default class Slider extends React.Component {
         else if (newDistance > this.width - 40) newDistance = this.width - 40
         this.setState({ distance: newDistance })
         this.dragStart = event.pageX
-        this.props.update((this.width - 40) / newDistance)
+        this.props.update(newDistance / (this.width - 40))
       }
     })
     window.addEventListener('mouseup', () => {
