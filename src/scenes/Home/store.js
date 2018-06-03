@@ -47,7 +47,12 @@ export function handleSpritesheetAction(action, ctx) {
   switch (action.tool) {
     case 'pencil': {
       ctx.fillStyle = action.color
-      ctx.fillRect(action.x, action.y, action.width, action.width)
+      ctx.fillRect(
+        action.x - Math.floor(action.width / 2),
+        action.y - Math.floor(action.width / 2),
+        action.width,
+        action.width,
+      )
       break
     }
 
