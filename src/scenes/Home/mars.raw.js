@@ -6,17 +6,12 @@ if (typeof draw !== 'function') throw new Error('You must define a "draw" functi
 const UPDATE_WAIT = 3
 
 // public api
-function rect(x, y, width, height, outline = false, color = 'black') {
-  ctx.rect(x, y, width, height)
+function rect(x, y, width, height, fillColor = 'black', outlineColor = fillColor) {
+  ctx.strokeStyle = outlineColor
+  ctx.fillStyle = fillColor
   
-  ctx.strokeStyle = color
-  ctx.fillStyle = color
-  
-  if (outline) {
-    ctx.stroke()
-  } else {
-    ctx.fill()
-  }
+  ctx.fillRect(x, y, width, height)
+  ctx.strokeRect(x, y, width, height)
 }
 const sprites = []
 
@@ -42,23 +37,22 @@ function line(x0, y0, x1, y1, color = 'black') {
   ctx.closePath()
 }
 
-function ellipse(x, y, radiusx, radiusy, outline = false, color = 'black') {
-  ctx.strokeStyle = color
-  ctx.fillStyle = color
+function ellipse(x, y, radiusx, radiusy, fillColor = 'black', outlineColor = fillColor) {
+  ctx.strokeStyle = outlineColor
+  ctx.fillStyle = fillColor
   
+  ctx.beginPath()
   ctx.ellipse(x, y, radiusx, radiusy, 0, 0, 2 * Math.PI)
-  if (outline) {
-    ctx.stroke()
-  } else {
-    ctx.fill()
-  }
+  ctx.fill()
+  ctx.stroke()
+  ctx.closePath()
 }
 
 function point(x, y, size = 5, color = 'black') {
   ellipse(x, y, size, size, color)  
 }
 
-function print(x, y, text, font = '16px serif', color = 'black') {
+function print(x, y, text, color = 'black', font = '16px serif') {
   ctx.fillStyle = color
   ctx.font = font
   ctx.fillText(text, x, y)
