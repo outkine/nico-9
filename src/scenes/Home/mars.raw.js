@@ -58,6 +58,12 @@ function point(x, y, size = 5, color = 'black') {
   ellipse(x, y, size, size, color)  
 }
 
+function print(x, y, text, font = '16px serif', color = 'black') {
+  ctx.fillStyle = color
+  ctx.font = font
+  ctx.fillText(text, x, y)
+}
+
 function cls() {
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
 }
