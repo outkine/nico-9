@@ -5,8 +5,6 @@ if (typeof draw !== 'function') throw new Error('You must define a "draw" functi
 
 const UPDATE_WAIT = 3
 
-// private utilities
-
 // public api
 function rect(x, y, width, height, outline = false, color = 'black') {
   ctx.rect(x, y, width, height)
